@@ -1,4 +1,4 @@
-FROM node:23
+FROM node:22
 
 ADD package.json /package.json
 
@@ -12,5 +12,5 @@ ADD . /app
 EXPOSE 8000
 EXPOSE 35729
 
-# ENTRYPOINT ["/bin/bash", "/app/run.sh"]
-CMD ["npm run dev"]
+ENTRYPOINT ["/bin/bash", "/app/run.sh"]
+CMD ["start"]
