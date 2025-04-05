@@ -24,12 +24,12 @@ async def db_session_middleware(request: Request, call_next):
     return response
 
 
-@app.get("/api/v1")
+@app.get("/api")
 async def root():
     return {"message": "Hello World"}
 
 
-@app.get("/api/v1/task")
+@app.get("/api/task")
 async def example_task():
     celery_app.send_task("app.tasks.example_task", args=["Hello World"])
 
@@ -39,7 +39,7 @@ async def example_task():
 # Routers
 app.include_router(
     users_router,
-    prefix="/api/v1",
+    prefix="/api",
     tags=["users"],
     dependencies=[Depends(get_current_active_user)],
 )

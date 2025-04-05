@@ -17,7 +17,7 @@ const httpClient = (url: any, options: any) => {
   return fetchUtils.fetchJson(url, options);
 };
 
-const dataProvider = simpleRestProvider('api/v1', httpClient);
+const dataProvider = simpleRestProvider('api', httpClient);
 
 export const Admin: FC = () => {
   return (
