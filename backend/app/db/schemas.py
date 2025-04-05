@@ -43,3 +43,12 @@ class Token(BaseModel):
 class TokenData(BaseModel):
     email: str = None
     permissions: str = "user"
+
+
+class Board(BaseModel):
+    cells: list[list[str]]
+
+
+class BoardState(BaseModel):
+    board: Board
+    move_stack: list[tuple[int, int]]
