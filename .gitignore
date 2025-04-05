@@ -175,3 +175,4 @@ cython_debug/
 
 # Manually added
 favicon reference.png
+.vscode/
