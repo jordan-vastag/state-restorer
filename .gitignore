@@ -201,5 +201,5 @@ dist-ssr
 favicon reference.png
 .vscode/
 node_modules
-package-lock.json
+*package-lock.json
 .docker/
