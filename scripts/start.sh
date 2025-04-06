@@ -21,8 +21,9 @@ docker compose run --rm backend alembic upgrade head
 # Create initial data
 docker compose run --rm backend python3 app/db/scripts/initial_data.py
 
+# TODO: configure this
 # Watch for file changes
-docker compose watch
+# docker compose watch
 
 # Output current status
 docker ps -a
