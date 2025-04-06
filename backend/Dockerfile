@@ -1,4 +1,5 @@
 FROM python:3.12
+EXPOSE 7331
 
 RUN mkdir /app
 WORKDIR /app

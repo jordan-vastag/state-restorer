@@ -1,4 +1,6 @@
 FROM node:23
+EXPOSE 5173
+EXPOSE 35729
 
 ADD package.json /package.json
 
@@ -9,8 +11,5 @@ RUN npm install
 WORKDIR /app
 ADD . /app
 
-EXPOSE 8000
-EXPOSE 35729
-
-# ENTRYPOINT ["/bin/bash", "/app/run.sh"]
-CMD ["npm run dev"]
+ENTRYPOINT ["/bin/bash", "/app/run.sh"]
+CMD ["start"]
