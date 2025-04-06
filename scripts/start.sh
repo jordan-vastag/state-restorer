@@ -13,7 +13,7 @@ docker compose create --build --remove-orphans
 docker compose start
 
 # Hack to wait for postgres container to be up before running alembic migrations
-# sleep 3;
+sleep 5;
 
 # Run migrations
 docker compose run --rm backend alembic upgrade head
