@@ -21,8 +21,6 @@ services:
     environment:
       PYTHONPATH: .
       DATABASE_URL: 'postgresql://postgres:password@postgres:5432/postgres'
-    depends_on:
-      - "postgres"
 
   frontend:
     build:
