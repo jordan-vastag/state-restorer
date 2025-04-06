@@ -4,8 +4,6 @@ PROJECT_NAME = "state-restorer"
 
 PORT = 7331
 
-SQLALCHEMY_DATABASE_URI = os.getenv("DATABASE_URL")
-
 DEFAULT_CELL_COLOR_THEME = "grayscale"
 CELL_COLOR_THEMES = {
     "grayscale": {

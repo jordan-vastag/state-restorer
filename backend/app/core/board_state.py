@@ -1,5 +1,4 @@
 from random import choice
-from app.db.schemas import AppState
 from app.core.config import CELL_COLOR_THEMES
 from app.core.context import current_cell_color_theme
 
