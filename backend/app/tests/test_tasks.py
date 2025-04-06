@@ -1,4 +1,4 @@
-from app import tasks
+from app.core import tasks
 
 
 def test_example_task():

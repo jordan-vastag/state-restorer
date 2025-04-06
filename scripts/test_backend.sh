@@ -1,6 +1,6 @@
 #! /usr/bin/env bash
 
 # Exit in case of error
-set -e
+set -ex
 
-docker-compose run backend pytest $@
+docker compose run --remove-orphans backend pytest $@

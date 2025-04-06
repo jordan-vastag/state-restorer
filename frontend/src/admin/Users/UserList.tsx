@@ -1,5 +1,5 @@
 // in src/users.js
-import React, { FC } from 'react';
+import { FC } from 'react';
 import {
   List,
   Datagrid,

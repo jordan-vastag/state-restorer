@@ -1,54 +1,42 @@
-import React, { FC } from 'react';
-import { Switch, Route } from 'react-router-dom';
-import { useHistory } from 'react-router';
-import { makeStyles } from '@material-ui/core/styles';
-
-import { Home, Login, SignUp, Protected, PrivateRoute } from './views';
+import { FC } from 'react';
+import { Routes as RouterRoutes, Route, Navigate } from 'react-router';
+import { Home, Login, SignUp, Protected, PrivateRoute} from './views';
 import { Admin } from './admin';
-import { logout } from './utils/auth';
+import { styled } from '@mui/material/styles';
 
-const useStyles = makeStyles((theme) => ({
-  app: {
-    textAlign: 'center',
-  },
-  header: {
-    backgroundColor: '#282c34',
-    minHeight: '100vh',
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    justifyContent: 'center',
-    fontSize: 'calc(10px + 2vmin)',
-    color: 'white',
-  },
-}));
+const MyDiv = styled('div')({
+  textAlign: 'center',
+});
+
+const Header = styled('header')({
+  backgroundColor: '#282c34',
+  minHeight: '100vh',
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'center',
+  justifyContent: 'center',
+  fontSize: 'calc(10px + 2vmin)',
+  color: 'white',
+})
 
 export const Routes: FC = () => {
-  const classes = useStyles();
-  const history = useHistory();
-
   return (
-    <Switch>
-      <Route path="/admin">
-        <Admin />
-      </Route>
-
-      <div className={classes.app}>
-        <header className={classes.header}>
-          <Route path="/login" component={Login} />
-          <Route path="/signup" component={SignUp} />
-          <Route
-            path="/logout"
-            render={() => {
-              logout();
-              history.push('/');
-              return null;
-            }}
-          />
-          <PrivateRoute path="/protected" component={Protected} />
-          <Route exact path="/" component={Home} />
-        </header>
-      </div>
-    </Switch>
+    <MyDiv>
+        <Header>
+            <RouterRoutes>
+                <Route path="/admin" element={<Admin />} />
+                <Route path="/login" element={<Login />} />
+                <Route path="/signup" element={<SignUp />} />
+                <Route
+                    path="/logout"
+                    element={<Navigate to="/" />}
+                    />
+                <PrivateRoute path="/protected" component={Protected} />
+                <Route path="/" Component={Home} />
+            </RouterRoutes>
+        </Header>
+    </MyDiv>
   );
 };
+
+export default Routes;

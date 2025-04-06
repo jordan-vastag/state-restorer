@@ -1,31 +1,21 @@
 import React, { FC, useState } from 'react';
-import { Paper, Grid, TextField, Button } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
-import { Face, Fingerprint } from '@material-ui/icons';
-import { Alert } from '@material-ui/lab';
-import { Redirect } from 'react-router-dom';
-import { useHistory } from 'react-router';
+import { Navigate } from 'react-router-dom';
+import { useNavigate } from 'react-router';
+
+import {
+  Paper,
+  TextField,
+  Button,
+  Alert,
+  Grid2
+} from "@mui/material";
+import { Face, Fingerprint } from "@mui/icons-material";
 
 import { signUp, isAuthenticated } from '../utils/auth';
 
-const useStyles = makeStyles((theme) => ({
-  margin: {
-    margin: theme.spacing(2),
-  },
-  padding: {
-    padding: theme.spacing(1),
-  },
-  button: {
-    textTransform: 'none',
-  },
-  marginTop: {
-    marginTop: 10,
-  },
-}));
 
 export const SignUp: FC = () => {
-  const classes = useStyles();
-  const history = useHistory();
+  const navigate = useNavigate();
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [passwordConfirmation, setPasswordConfirmation] = useState<string>('');
@@ -40,7 +30,7 @@ export const SignUp: FC = () => {
         const data = await signUp(email, password, passwordConfirmation);
 
         if (data) {
-          history.push('/');
+          navigate('/');
         }
       } catch (err) {
         if (err instanceof Error) {
@@ -55,15 +45,12 @@ export const SignUp: FC = () => {
   };
 
   return isAuthenticated() ? (
-    <Redirect to="/" />
+    <Navigate to="/" />
   ) : (
-    <Paper className={classes.padding}>
-      <div className={classes.margin}>
-        <Grid container spacing={8} alignItems="flex-end">
-          <Grid item>
+    <Paper>
+      <div>
+        <Grid2 container spacing={8} alignItems="flex-end">
             <Face />
-          </Grid>
-          <Grid item md={true} sm={true} xs={true}>
             <TextField
               id="email"
               label="Email"
@@ -76,13 +63,9 @@ export const SignUp: FC = () => {
               autoFocus
               required
             />
-          </Grid>
-        </Grid>
-        <Grid container spacing={8} alignItems="flex-end">
-          <Grid item>
+        </Grid2>
+        <Grid2 container spacing={8} alignItems="flex-end">
             <Fingerprint />
-          </Grid>
-          <Grid item md={true} sm={true} xs={true}>
             <TextField
               id="password"
               label="Password"
@@ -94,13 +77,9 @@ export const SignUp: FC = () => {
               fullWidth
               required
             />
-          </Grid>
-        </Grid>
-        <Grid container spacing={8} alignItems="flex-end">
-          <Grid item>
+        </Grid2>
+        <Grid2 container spacing={8} alignItems="flex-end">
             <Fingerprint />
-          </Grid>
-          <Grid item md={true} sm={true} xs={true}>
             <TextField
               id="passwordConfirmation"
               label="Confirm password"
@@ -112,26 +91,22 @@ export const SignUp: FC = () => {
               fullWidth
               required
             />
-          </Grid>
-        </Grid>
+        </Grid2>
         <br />
-        <Grid container alignItems="center">
+        <Grid2 container alignItems="center">
           {error && (
-            <Grid item>
               <Alert severity="error">{error}</Alert>
-            </Grid>
           )}
-        </Grid>
-        <Grid container justify="center" className={classes.marginTop}>
+        </Grid2>
+        <Grid2 container justifyContent="center">
           <Button
             variant="outlined"
             color="primary"
-            className={classes.button}
             onClick={handleSubmit}
           >
             Sign Up
           </Button>
-        </Grid>
+        </Grid2>
       </div>
     </Paper>
   );

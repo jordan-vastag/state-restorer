@@ -1,4 +1,4 @@
-import decodeJwt from 'jwt-decode';
+import { jwtDecode } from 'jwt-decode';
 
 type loginFormType = {
   username: string;
@@ -22,7 +22,7 @@ const authProvider = {
         return response.json();
       })
       .then(({ access_token }) => {
-        const decodedToken: any = decodeJwt(access_token);
+        const decodedToken: any = jwtDecode(access_token);
         if (decodedToken.permissions !== 'admin') {
           throw new Error('Forbidden');
         }

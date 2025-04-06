@@ -18,21 +18,21 @@ class UserCreate(UserBase):
     password: str
 
     class Config:
-        orm_mode = True
+        from_attributes = True
 
 
 class UserEdit(UserBase):
     password: t.Optional[str] = None
 
     class Config:
-        orm_mode = True
+        from_attributes = True
 
 
 class User(UserBase):
     id: int
 
     class Config:
-        orm_mode = True
+        from_attributes = True
 
 
 class Token(BaseModel):
@@ -45,10 +45,10 @@ class TokenData(BaseModel):
     permissions: str = "user"
 
 
-class Board(BaseModel):
-    cells: list[list[str]]
+class AppState(BaseModel):
+    board: list[list[str]]
+    move_history: list[tuple[int, int]]
+    move: tuple[int, int]
 
-
-class BoardState(BaseModel):
-    board: Board
-    move_stack: list[tuple[int, int]]
+class Theme(BaseModel):
+    name: str

@@ -2,9 +2,7 @@
 
 case $1 in
   start)
-    # The '| cat' is to trick Node that this is an non-TTY terminal
-    # then react-scripts won't clear the console.
-    npm start | cat
+    npm run dev
     ;;
   build)
     npm build

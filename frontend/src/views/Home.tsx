@@ -1,19 +1,12 @@
-import React, { FC, useState } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+import { FC, useState } from 'react';
 
 import { getMessage } from '../utils/api';
 import { isAuthenticated } from '../utils/auth';
 
-const useStyles = makeStyles((theme) => ({
-  link: {
-    color: '#61dafb',
-  },
-}));
 
 export const Home: FC = () => {
   const [message, setMessage] = useState<string>('');
   const [error, setError] = useState<string>('');
-  const classes = useStyles();
 
   const queryBackend = async () => {
     try {
@@ -27,7 +20,7 @@ export const Home: FC = () => {
   return (
     <>
       {!message && !error && (
-        <a className={classes.link} href="#" onClick={() => queryBackend()}>
+        <a href="#" onClick={() => queryBackend()}>
           Click to make request to backend
         </a>
       )}
@@ -41,22 +34,22 @@ export const Home: FC = () => {
           Error: <code>{error}</code>
         </p>
       )}
-      <a className={classes.link} href="/admin">
+      <a href="/admin">
         Admin Dashboard
       </a>
-      <a className={classes.link} href="/protected">
+      <a href="/protected">
         Protected Route
       </a>
       {isAuthenticated() ? (
-        <a className={classes.link} href="/logout">
+        <a href="/logout">
           Logout
         </a>
       ) : (
         <>
-          <a className={classes.link} href="/login">
+          <a href="/login">
             Login
           </a>
-          <a className={classes.link} href="/signup">
+          <a href="/signup">
             Sign Up
           </a>
         </>
