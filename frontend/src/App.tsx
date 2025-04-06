@@ -1,11 +1,14 @@
-import { FC } from 'react';
+import './App.css'
+import logo from '/logo.png'
+import { Button } from '@chakra-ui/react'
 
-export const App: FC = () => {
-    return (
-        <div>
-            <p>App</p>
-        </div>
-    );
-};
+function App() {
+  return (
+    <>
+      <Button>Click on me!</Button>
+      <img src={logo} className="logo" alt="Vite logo" />
+    </>
+  )
+}
 
-export default App;
+export default App
