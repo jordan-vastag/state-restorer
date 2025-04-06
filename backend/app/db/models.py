@@ -14,11 +14,6 @@ class User(Base):
     is_active = Column(Boolean, default=True)
     is_superuser = Column(Boolean, default=False)
 
-# class BoardState(Base):
-#     __tablename__ = "board_state"
-#     id = Column(Integer, primary_key=True, index=True)
-#     board_id = Column(Integer, nullable=False)
-
 class Board(Base):
     __tablename__ = "board"
 

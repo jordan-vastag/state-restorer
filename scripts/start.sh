@@ -19,7 +19,7 @@ sleep 5;
 docker compose run --rm backend alembic upgrade head
 
 # Create initial data
-docker compose run --rm backend python3 app/initial_data.py
+docker compose run --rm backend python3 app/db/scripts/initial_data.py
 
 # Watch for file changes
 docker compose watch
