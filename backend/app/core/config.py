@@ -4,6 +4,8 @@ PROJECT_NAME = "state-restorer"
 
 PORT = 7331
 
+FRONTEND_LOCAL_URL = "http://localhost:5173"
+
 DEFAULT_CELL_COLOR_THEME = "grayscale"
 CELL_COLOR_THEMES = {
     "grayscale": {

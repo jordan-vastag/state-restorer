@@ -1,4 +1,5 @@
 from fastapi import FastAPI, Response, status
+from fastapi.middleware.cors import CORSMiddleware
 import uvicorn
 
 from app.core import config
@@ -8,6 +9,18 @@ from app.core.context import current_cell_color_theme
 
 app = FastAPI(
     title=config.PROJECT_NAME, docs_url="/api/docs", openapi_url="/api"
+)
+
+origins = [
+    config.FRONTEND_LOCAL_URL,
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
 )
 
 
