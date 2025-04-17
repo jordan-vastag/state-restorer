@@ -28,7 +28,7 @@ def test_validate_move():
 
 
 def test_do_move():
-    move = (0, 1)
+    move = (1, 1)
     current_board = [
         ["#000000", "#000000", "#000000"],
         ["#000000", "#f6f6f6", "#000000"],
