@@ -61,14 +61,14 @@ def _get_adjacent_cells(
 
 def do_move(board: list[list[str]], move: tuple[int, int]) -> list[list[str]]:
     move_x, move_y = move
+    new_board = [row[:] for row in board]
 
     # Flip the selected cell
-    board[move_x][move_y] = _get_complement(board[move_x][move_y])
+    new_board[move_x][move_y] = _get_complement(new_board[move_x][move_y])
 
     # Flip adjacent cells
-    for pair in _get_adjacent_cells(board, move_x, move_y):
+    for pair in _get_adjacent_cells(new_board, move_x, move_y):
         x, y = pair
-        complement = _get_complement(board[x][x])
-        board[x][y] = complement
+        new_board[x][y] = _get_complement(new_board[x][y])
 
-    return board
+    return new_board
