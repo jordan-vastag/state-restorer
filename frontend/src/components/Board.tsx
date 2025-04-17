@@ -11,6 +11,7 @@ const initializeCells = (n: number, value: string) => {
 
 const Board = () => {
   const [cells, setCells] = useState(initializeCells(boardSize, "lightgray"));
+  const [moveHistory, setMoveHistory] = useState([[0, 0]]);
 
   useEffect(() => {
     const fetchCells = async () => {
@@ -23,7 +24,6 @@ const Board = () => {
           throw new Error(`Response status: ${response.status}`);
         }
         const json = await response.json();
-        console.log(json);
         setCells(json.board);
       } catch (error: unknown) {
         console.error(error);
@@ -39,7 +39,7 @@ const Board = () => {
         <SimpleGrid columns={boardSize} gap="1">
           <For each={cells}>
             {(_, row: number) => (
-              <For each={cells[row]}>
+              <For each={cells[row]} key={row}>
                 {(item: string, column: number) => (
                   <Tile
                     key={row + "-" + column}
@@ -47,6 +47,8 @@ const Board = () => {
                     bg={item}
                     board={cells}
                     moveHistory={moveHistory}
+                    setMoveHistory={setMoveHistory}
+                    setCells={setCells}
                   />
                 )}
               </For>

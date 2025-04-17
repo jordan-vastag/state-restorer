@@ -1,4 +1,4 @@
-import { Box, ProgressCirclePropsProvider } from "@chakra-ui/react";
+import { Box } from "@chakra-ui/react";
 import { API_URL } from "@/constants";
 
 interface tileProps {
@@ -6,13 +6,20 @@ interface tileProps {
   bg: string;
   board: Array<Array<string>>;
   moveHistory: Array<Array<number>>;
+  setMoveHistory: CallableFunction;
+  setCells: CallableFunction;
 }
 
 const handleClick = async (
   index: Array<number>,
   board: Array<Array<string>>,
-  moveHistory: Array<Array<number>>
+  moveHistory: Array<Array<number>>,
+  setMoveHistory: CallableFunction,
+  setCells: CallableFunction
 ) => {
+  console.log(`index: ${index}`)
+  console.log(`moveHistory: ${moveHistory}`)
+
   const options = {
     method: "POST",
     headers: {
@@ -32,7 +39,10 @@ const handleClick = async (
       throw new Error(`Response status: ${response.status}`);
     }
     const json = await response.json();
-    // TODO: update move_history and board
+
+    setCells(json.board);
+    moveHistory[moveHistory.length] = index;
+    setMoveHistory(moveHistory);
   } catch (error: unknown) {
     console.error(error);
   }
@@ -41,7 +51,7 @@ const handleClick = async (
 const Tile = (props: tileProps) => {
   return (
     <Box
-      onClick={() => handleClick(props.index, props.board, props.moveHistory)}
+      onClick={() => handleClick(props.index, props.board, props.moveHistory, props.setMoveHistory, props.setCells)}
       boxSize="xs"
       bg={props.bg}
       borderRadius="md"
