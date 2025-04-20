@@ -1,5 +1,7 @@
 # state-restorer
 
+TODO: rewrite this
+
 ## Features
 
 - **FastAPI** with Python 3.12

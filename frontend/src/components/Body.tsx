@@ -1,9 +1,16 @@
-import { Board } from ".";
+import { Flex } from "@chakra-ui/react";
+import { ReactNode } from "react";
 
-function Body() {
+interface bodyProps {
+  children: ReactNode
+}
+
+const Body = (props: bodyProps) => {
   return (
     <>
-      <Board />
+      <Flex flexDirection="column" flex="1" spaceY="10">
+        {props.children}
+      </Flex>
     </>
   );
 }

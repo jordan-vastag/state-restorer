@@ -4,7 +4,7 @@ import uvicorn
 
 from app.core import config
 from app.core.board_state import *
-from app.core.request_schemas import Theme, AppState
+from app.core.request_schemas import Theme, AppState, Board
 from app.core.context import current_cell_color_theme
 
 app = FastAPI(
@@ -66,6 +66,18 @@ async def initial_state(state: AppState, response: Response):
     else:
         response.status_code = status.HTTP_400_BAD_REQUEST
         return {"msg": "no moves have been performed"}
+
+
+@app.post("/api/board/target")
+async def target_state(initial_board: Board, response: Response, strategy: str = "random"):
+    try:
+        validate_target_state_generation_strategy(strategy)
+        target_board, solution = generate_target_state(
+            initial_board.board, strategy)
+        return {"board": target_board, "solution": solution}
+    except:
+        response.status_code = status.HTTP_400_BAD_REQUEST
+        return {"msg": "failed to generate target board state"}
 
 
 @app.post("/api/board/theme")

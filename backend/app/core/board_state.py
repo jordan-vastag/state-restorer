@@ -1,5 +1,5 @@
-from random import choice
-from app.core.config import CELL_COLOR_THEMES
+from random import choice, randint
+from app.core.config import CELL_COLOR_THEMES, TARGET_STATE_GENERATION_STRATEGIES
 from app.core.context import current_cell_color_theme
 
 
@@ -14,6 +14,13 @@ def validate_move(move: tuple[int, int], board_size: int):
     if not (move[0] < board_size and move[1] < board_size):
         raise ValueError(
             f"move {move} contains an out of bounds index (board size is {board_size})"
+        )
+
+
+def validate_target_state_generation_strategy(strategy: str):
+    if strategy not in TARGET_STATE_GENERATION_STRATEGIES:
+        raise ValueError(
+            f"target state generation strategy '{strategy}' is invalid"
         )
 
 
@@ -59,16 +66,66 @@ def _get_adjacent_cells(
     return adjacent
 
 
+def _remove_redundant_moves(solution: list[tuple[int, int]]) -> list[tuple[int, int]]:
+    new_solution = []
+    index = 0
+    while index < len(solution):
+        if index == len(solution) - 1 and solution[index] != solution[index - 1]:
+            new_solution.append(solution[index])
+            index += 1
+        elif solution[index] == solution[index + 1]:
+            index += 2
+        else:
+            new_solution.append(solution[index])
+            index += 1
+    return new_solution
+
+
+def _count_redundant_moves(solution: list[tuple[int, int]]) -> int:
+    count = 0
+    index = 1
+    while index < len(solution):
+        if solution[index] == solution[index - 1]:
+            count += 1
+            index += 1
+        else:
+            index += 1
+
+    return count
+
+
+def _optimize_solution(solution: list[tuple[int, int]]) -> list[tuple[int, int]]:
+    while _count_redundant_moves(solution) > 0:
+        solution = _remove_redundant_moves(solution)
+    return solution
+
+
 def do_move(board: list[list[str]], move: tuple[int, int]) -> list[list[str]]:
     move_x, move_y = move
-    new_board = [row[:] for row in board]
+    new_board = board.copy()
 
     # Flip the selected cell
-    new_board[move_x][move_y] = _get_complement(new_board[move_x][move_y])
-
+    complement = _get_complement(board[move_x][move_y])
+    new_board[move_x][move_y] = complement
     # Flip adjacent cells
     for pair in _get_adjacent_cells(new_board, move_x, move_y):
         x, y = pair
         new_board[x][y] = _get_complement(new_board[x][y])
 
     return new_board
+
+
+def generate_target_state(board: list[list[str]], strategy: str):
+    solution = []
+    if strategy == "random":
+        # TODO: modify this range based on difficulty
+        num_moves = randint(2, 5)
+        board_size = len(list(board)[0])
+        for _ in range(num_moves):
+            x = randint(0, board_size - 1)
+            y = randint(0, board_size - 1)
+            board = do_move(board, (x, y))
+            solution.append((x, y))
+
+    solution = _optimize_solution(solution)
+    return (board, solution)

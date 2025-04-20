@@ -1,63 +1,106 @@
-import { useState, useEffect } from "react";
-import { SimpleGrid, Center, For } from "@chakra-ui/react";
-import { Tile } from "@/components";
-import { DEFAULT_BOARD_SIZE, API_URL } from "@/constants";
+import { SimpleGrid, Center, For, Flex, Box, Stack } from "@chakra-ui/react";
 
-const boardSize = DEFAULT_BOARD_SIZE;
+interface boardProps {
+  cells: string[][];
+  solutionMoves?: number[][];
+}
 
-const initializeCells = (n: number, value: string) => {
-  return Array(n).fill(Array(n).fill(value));
-};
+const Board = (props: boardProps) => {
+  const cellInSolution = (cell: number[], solutionMoves?: number[][]) => {
+    if (solutionMoves === undefined) {
+      throw new Error("solutionMoves is undefined");
+    } else {
+      const index = solutionMoves.findIndex(
+        (move) =>
+          move.length === cell.length &&
+          move.every((value, i) => value === cell[i])
+      );
 
-const Board = () => {
-  const [cells, setCells] = useState(initializeCells(boardSize, "lightgray"));
-  const [moveHistory, setMoveHistory] = useState([[0, 0]]);
-
-  useEffect(() => {
-    const fetchCells = async () => {
-      const params = new URLSearchParams({ size: boardSize.toString() });
-      const url = new URL(`${API_URL}/board/new?${params}`);
-
-      try {
-        const response = await fetch(url);
-        if (!response.ok) {
-          throw new Error(`Response status: ${response.status}`);
-        }
-        const json = await response.json();
-        setCells(json.board);
-      } catch (error: unknown) {
-        console.error(error);
-      }
-    };
-
-    fetchCells();
-  }, []);
-
-  return (
-    <>
-      <Center>
-        <SimpleGrid columns={boardSize} gap="1">
-          <For each={cells}>
-            {(_, row: number) => (
-              <For each={cells[row]} key={row}>
-                {(item: string, column: number) => (
-                  <Tile
-                    key={row + "-" + column}
-                    index={[row, column]}
-                    bg={item}
-                    board={cells}
-                    moveHistory={moveHistory}
-                    setMoveHistory={setMoveHistory}
-                    setCells={setCells}
-                  />
+      return {
+        inSolution: index !== -1,
+        index: index,
+      };
+    }
+  };
+  if (props.solutionMoves === undefined) {
+    return (
+      <>
+        <Center>
+          <Flex flexDirection="column" alignItems="center" spaceY="1">
+            <SimpleGrid columns={props.cells.length} gap="1">
+              <For each={props.cells}>
+                {(_, row: number) => (
+                  <For each={props.cells[row]} key={row}>
+                    {(item: string, column: number) => (
+                      <Box
+                        key={row + "-" + column}
+                        boxSize="14"
+                        borderRadius="sm"
+                        bg={item}
+                      />
+                    )}
+                  </For>
                 )}
               </For>
-            )}
-          </For>
-        </SimpleGrid>
-      </Center>
-    </>
-  );
+            </SimpleGrid>
+          </Flex>
+        </Center>
+      </>
+    );
+  } else {
+    return (
+      <>
+        <Center>
+          <Flex flexDirection="column" alignItems="center" spaceY="1">
+            <SimpleGrid columns={props.cells.length} gap="1">
+              <For each={props.cells}>
+                {(_, row: number) => (
+                  <For each={props.cells[row]} key={row}>
+                    {(item: string, column: number) => {
+                      let result = cellInSolution(
+                        [row, column],
+                        props.solutionMoves
+                      );
+                      if (result.inSolution) {
+                        return (
+                          <Box
+                            key={row + "-" + column}
+                            boxSize="14"
+                            borderRadius="sm"
+                            borderColor="green.500"
+                            borderWidth="3px"
+                            bg={item}
+                            display="flex"
+                            alignItems="center"
+                            justifyContent="center"
+                            fontSize="2xl"
+                          >
+                            {
+                              /* FIXME: what do when a cell appears twice in solutionMoves?   */
+                              result.index + 1
+                            }
+                          </Box>
+                        );
+                      } else {
+                        return (
+                          <Box
+                            key={row + "-" + column}
+                            boxSize="14"
+                            borderRadius="sm"
+                            bg={item}
+                          />
+                        );
+                      }
+                    }}
+                  </For>
+                )}
+              </For>
+            </SimpleGrid>
+          </Flex>
+        </Center>
+      </>
+    );
+  }
 };
 
 export default Board;
