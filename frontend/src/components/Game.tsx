@@ -134,13 +134,6 @@ function Game() {
     });
   };
 
-  const showSolution = () => {
-    toaster.create({
-      description: `Solution: [${solutionMoves.join(", ")}]`,
-      type: "info",
-    });
-  };
-
   const newGame = async () => {
     // TODO: add "Are you sure?" confirmation modal
     const newCells = await fetchNewBoard();
@@ -225,7 +218,6 @@ function Game() {
             solutionMoves={solutionMoves}
             cells={initializedCells}
           />
-          <Button onClick={showSolution}>SolutionArray</Button>
           <Button
             borderRadius={buttonBorderRadius}
             fontSize={buttonFontSize}

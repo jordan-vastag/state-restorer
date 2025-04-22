@@ -57,7 +57,7 @@ const Board = (props: boardProps) => {
                 {(_, row: number) => (
                   <For each={props.cells[row]} key={row}>
                     {(item: string, column: number) => {
-                      let result = cellInSolution(
+                      const result = cellInSolution(
                         [row, column],
                         props.solutionMoves
                       );

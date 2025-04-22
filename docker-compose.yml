@@ -31,12 +31,11 @@ services:
     build:
       context: frontend
       dockerfile: Dockerfile
+    command: npm run docker
     stdin_open: true
     volumes:
       - './frontend:/app:cached'
       - './frontend/node_modules:/app/node_modules:cached'
-    environment:
-      - NODE_ENV=development
     networks:
       - frontend
 

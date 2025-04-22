@@ -45,7 +45,6 @@ const SolutionModal = (props: SolutionModalProps) => {
           </Dialog.Positioner>
         </Portal>
       </Dialog.Root>
-      ;
     </>
   );
 };
