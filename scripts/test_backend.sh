@@ -3,4 +3,4 @@
 # Exit in case of error
 set -ex
 
-docker compose run --rm --remove-orphans backend pytest $@
+docker compose run --rm --remove-orphans backend pytest "$@"
