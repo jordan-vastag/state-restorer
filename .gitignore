@@ -204,3 +204,4 @@ node_modules
 *package-lock.json
 .docker/
 *yarn.lock
+*pyproject.toml
