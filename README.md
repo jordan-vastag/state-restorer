@@ -13,6 +13,8 @@ This will build images and run containers for the frontend, backend, and nginx.
 - Frontend: [http://localhost:8443](http://localhost:8443)
 - Backend: [http://localhost:8443/api/docs](http://localhost:8443/api/docs)
 
+To stop the app: `docker compose down`
+
 ### Linux
 
 ```
@@ -28,6 +30,8 @@ Verified to work for:
 
 - Ubuntu via WSL2
 - Linux Mint
+
+To stop the app: `./scripts/stop.sh`
 
 ## Testing
 
