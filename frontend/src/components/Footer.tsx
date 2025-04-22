@@ -1,4 +1,4 @@
-import { Box, Container, Flex, Link, Image } from "@chakra-ui/react";
+import { Box, Container, Flex, Link } from "@chakra-ui/react";
 import { SOURCE_CODE_GITHUB_URL } from "@/constants";
 
 function Footer() {

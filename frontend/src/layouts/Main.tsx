@@ -1,21 +1,24 @@
 import { Flex } from "@chakra-ui/react";
 import { Provider } from "@/components/ui/provider";
-import { Navbar, Body, Footer, Game } from "@/components";
+import { Navbar, Body, Footer } from "@/components";
 import { Toaster } from "@/components/ui/toaster";
+import { ReactNode } from "react";
 
-function App() {
+interface props {
+  children: ReactNode;
+}
+
+function Main(props: props) {
   return (
     <Provider>
       <Toaster />
       <Flex flexDirection="column">
         <Navbar />
-        <Body>
-          <Game />
-        </Body>
+        <Body>{props.children}</Body>
         <Footer />
       </Flex>
     </Provider>
   );
 }
 
-export default App;
+export default Main;

@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { GameBoard, Board, SolutionModal } from "@/components";
 import { DEFAULT_BOARD_SIZE, API_URL } from "@/constants";
-import { Button, Flex, Container, Box, Center } from "@chakra-ui/react";
+import { Button, Flex, Container, Box } from "@chakra-ui/react";
 import { toaster } from "@/components/ui/toaster";
 
 // FIXME: solutionMoves is wrong
