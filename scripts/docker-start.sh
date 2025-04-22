@@ -17,4 +17,5 @@ docker compose start
 # docker compose watch
 
 # Output current status
+sleep 5
 docker ps -a
