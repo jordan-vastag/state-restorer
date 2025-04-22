@@ -203,3 +203,4 @@ favicon reference.png
 node_modules
 *package-lock.json
 .docker/
+*yarn.lock
