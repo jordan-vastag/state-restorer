@@ -31,4 +31,6 @@ Verified to work for:
 
 ## Testing
 
-Currently there are only backend unit tests. Run them like so: `./scripts/test_backend.sh`
+Currently there are only backend unit tests.
+
+To run them: `./scripts/docker-start.sh; ./scripts/test_backend.sh
