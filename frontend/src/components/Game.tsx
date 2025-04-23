@@ -33,6 +33,7 @@ function Game() {
       return json.board;
     } catch (error: unknown) {
       console.error(error);
+      window.location.assign("/error");
     }
   };
 
@@ -57,6 +58,7 @@ function Game() {
       return { board: json.board, solution: json.solution };
     } catch (error: unknown) {
       console.error(error);
+      window.location.assign("/error");
     }
   };
 

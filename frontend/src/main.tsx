@@ -9,6 +9,7 @@ import {
   Contact,
   NotFound,
   HowToPlay,
+  Error,
 } from "@/routes";
 
 createRoot(document.getElementById("root")!).render(
@@ -21,6 +22,7 @@ createRoot(document.getElementById("root")!).render(
         <Route path="/privacy" element={<Privacy />} />
         <Route path="/terms-and-conditions" element={<Terms />} />
         <Route path="/how-to-play" element={<HowToPlay />} />
+        <Route path="/error" element={<Error />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>

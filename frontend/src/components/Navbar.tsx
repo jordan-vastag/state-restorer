@@ -1,20 +1,25 @@
-import { Flex, Link, Image, Box, Container } from "@chakra-ui/react";
+import { Flex, Link, Image, Box } from "@chakra-ui/react";
 import { SOURCE_CODE_GITHUB_URL } from "@/constants";
 
 function Navbar() {
   return (
     <>
-      <Container>
-        <Flex justifyContent="space-between" padding="3">
+      {/* TODO: use theme color */}
+      <Flex bg="whitesmoke" justifyContent="center">
+        <Flex justifyContent="space-between" width="60vw" padding="3">
           <Flex alignItems="center" spaceX="2">
-            <Link href="/" padding="2">
-              <Image src="logo.png" alt="State Restorer Logo" />
+            <Link href="/">
+              <Image
+                src="logo.png"
+                alt="State Restorer Logo"
+                scale="0.75"
+              ></Image>
             </Link>
-            <Box fontSize="3xl">
+            <Box fontSize="xl">
               <b>State Restorer</b>
             </Box>
           </Flex>
-          <Flex alignItems="center" spaceX="5" fontSize="xl">
+          <Flex alignItems="center" spaceX="4" fontSize="lg">
             <Link href="/">Home</Link>
             <Link href="/how-to-play">How To Play</Link>
             <Link href="/about">About</Link>
@@ -29,7 +34,7 @@ function Navbar() {
             </Link>
           </Flex>
         </Flex>
-      </Container>
+      </Flex>
     </>
   );
 }

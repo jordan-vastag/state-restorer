@@ -6,5 +6,16 @@ import Navbar from "./Navbar";
 import Tile from "./Tile";
 import Game from "./Game";
 import SolutionModal from "./SolutionModal";
+import Error from "./Error";
 
-export { Footer, GameBoard, Board, Navbar, Body, Tile, Game, SolutionModal };
+export {
+  Footer,
+  GameBoard,
+  Board,
+  Navbar,
+  Body,
+  Tile,
+  Game,
+  SolutionModal,
+  Error,
+};

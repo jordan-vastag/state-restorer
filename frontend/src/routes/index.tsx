@@ -3,7 +3,8 @@ import About from "./About";
 import Privacy from "./Privacy";
 import Terms from "./Terms";
 import Contact from "./Contact";
-import NotFound from "./NotFound";
+import NotFound from "./404NotFound";
 import HowToPlay from "./HowToPlay";
+import Error from "./GenericError";
 
-export { Home, About, Privacy, Terms, Contact, NotFound, HowToPlay };
+export { Home, About, Privacy, Terms, Contact, NotFound, HowToPlay, Error };
