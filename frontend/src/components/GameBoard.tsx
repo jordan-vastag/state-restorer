@@ -23,6 +23,7 @@ const GameBoard = (props: gameBoardProps) => {
                     key={row + "-" + column}
                     index={[row, column]}
                     bg={item}
+                    size="3xs"
                     board={props.cells}
                     moveHistory={props.moveHistory}
                     setMoveHistory={props.setMoveHistory}

@@ -11,6 +11,7 @@ interface tileProps {
   setMoveHistory: CallableFunction;
   setCells: CallableFunction;
   gameIsWon: CallableFunction;
+  size: string;
 }
 
 const Tile = (props: tileProps) => {
@@ -72,7 +73,7 @@ const Tile = (props: tileProps) => {
           props.gameIsWon
         )
       }
-      boxSize="2xs"
+      boxSize={props.size}
       bg={props.bg}
       borderRadius="md"
       _hover={{ cursor: "button" }}

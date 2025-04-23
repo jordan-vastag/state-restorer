@@ -8,7 +8,7 @@ function App() {
 
   return (
     <Provider>
-      <Flex flexDirection="column">
+      <Flex flexDirection="column" height="100vh">
         <Navbar />
         <Body>
           <Markdown>{privacyPolicy}</Markdown>
