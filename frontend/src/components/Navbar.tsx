@@ -1,5 +1,5 @@
-import { Flex, Link, Image, Box } from "@chakra-ui/react";
 import { SOURCE_CODE_GITHUB_URL } from "@/constants";
+import { Box, Flex, Image, Link } from "@chakra-ui/react";
 
 function Navbar() {
   return (
@@ -10,9 +10,9 @@ function Navbar() {
           <Flex alignItems="center" spaceX="2">
             <Link href="/">
               <Image
-                src="logo.png"
+                src="logo/logo192.png"
                 alt="State Restorer Logo"
-                scale="0.75"
+                boxSize="48px"
               ></Image>
             </Link>
             <Box fontSize="xl">
