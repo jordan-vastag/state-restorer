@@ -3,6 +3,12 @@
 # Exit in case of error
 set -ex
 
+# Start Docker if needed
+if ! systemctl is-active --quiet docker; then
+    echo "Starting Docker..."
+    sudo systemctl start docker
+fi
+
 # Stop containers
 docker compose down
 
