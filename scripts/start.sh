@@ -82,7 +82,7 @@ if lsof -i:8000 &>/dev/null; then
     echo "Stopped."
 fi
 echo "Starting backend..."
-cd backend && fastapi run app/main.py &
+cd backend && . venv/bin/activate && fastapi run app/main.py &
 echo "Done."
 
 if lsof -i:5173 &>/dev/null; then
