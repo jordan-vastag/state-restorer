@@ -33,6 +33,8 @@ Verified to work for:
 
 To stop the app: `./scripts/stop.sh`
 
+If `start.sh` fails, try removing `backend/venv`, `node_modules` and `yarn.lock` and retrying.
+
 ## Testing
 
 Currently there are only backend unit tests.
