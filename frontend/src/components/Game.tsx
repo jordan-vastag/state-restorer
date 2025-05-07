@@ -1,10 +1,8 @@
-import { useState, useEffect } from "react";
-import { GameBoard, Board, SolutionModal } from "@/components";
-import { DEFAULT_BOARD_SIZE, API_URL } from "@/constants";
-import { Button, Flex, Container, Box } from "@chakra-ui/react";
+import { Board, GameBoard, SolutionModal } from "@/components";
 import { toaster } from "@/components/ui/toaster";
-
-// FIXME: solutionMoves is wrong
+import { API_URL, DEFAULT_BOARD_SIZE } from "@/constants";
+import { Box, Button, Container, Flex } from "@chakra-ui/react";
+import { useEffect, useState } from "react";
 
 function Game() {
   const boardSize = DEFAULT_BOARD_SIZE;
@@ -142,9 +140,9 @@ function Game() {
     setCells(newCells);
     setInitialCells(newCells);
 
-    let targetBoard = await fetchTargetBoard(initialCells);
+    let targetBoard = await fetchTargetBoard(newCells);
     while (gameIsWon(newCells, targetBoard?.board)) {
-      targetBoard = await fetchTargetBoard(initialCells);
+      targetBoard = await fetchTargetBoard(newCells);
     }
     setTargetCells(targetBoard?.board);
     setSolutionMoves(targetBoard?.solution);
