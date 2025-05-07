@@ -3,6 +3,9 @@
 # Exit in case of error
 set -ex
 
+# Install dependencies
+./scripts/build.sh
+
 # Start Docker if needed
 if ! systemctl is-active --quiet docker; then
     echo "Starting Docker..."
