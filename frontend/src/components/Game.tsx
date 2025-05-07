@@ -4,6 +4,8 @@ import { API_URL, DEFAULT_BOARD_SIZE } from "@/constants";
 import { Box, Button, Container, Flex } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 
+// TODO: verify new board and target board are not the same
+
 function Game() {
   const boardSize = DEFAULT_BOARD_SIZE;
   const buttonBorderRadius = "md";
