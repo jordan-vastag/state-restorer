@@ -1,4 +1,4 @@
-import { SimpleGrid, Center, For, Flex, Box, Stack } from "@chakra-ui/react";
+import { Box, Center, Flex, For, SimpleGrid } from "@chakra-ui/react";
 
 interface boardProps {
   cells: string[][];
