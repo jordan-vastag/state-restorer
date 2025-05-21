@@ -1,6 +1,6 @@
-const DEFAULT_BOARD_SIZE = 3;
+const DEFAULT_BOARD_SIZE = 3; // TODO: add difficulties
 const API_URL = import.meta.env.VITE_API_URL;
 const SOURCE_CODE_GITHUB_URL =
   "https://github.com/jordan-vastag/state-restorer";
 
-export { DEFAULT_BOARD_SIZE, API_URL, SOURCE_CODE_GITHUB_URL };
+export { API_URL, DEFAULT_BOARD_SIZE, SOURCE_CODE_GITHUB_URL };
