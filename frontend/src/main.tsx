@@ -1,16 +1,18 @@
-import { StrictMode } from "react";
-import { createRoot } from "react-dom/client";
-import { BrowserRouter, Routes, Route } from "react-router";
 import {
-  Home,
   About,
+  Contact,
+  Error,
+  Home,
+  HowToPlay,
+  NotFound,
   Privacy,
   Terms,
-  Contact,
-  NotFound,
-  HowToPlay,
-  Error,
 } from "@/routes";
+import { StrictMode } from "react";
+import { createRoot } from "react-dom/client";
+import { BrowserRouter, Route, Routes } from "react-router";
+
+// TODO: add light and dark themes
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
