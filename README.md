@@ -33,7 +33,7 @@ Verified to work for:
 
 To stop the app: `./scripts/stop.sh`
 
-If `start.sh` fails, try removing `backend/venv`, `node_modules` and `yarn.lock` and retrying.
+If `start.sh` fails, try removing `backend/venv`, `node_modules` and `yarn.lock` before retrying.
 
 ## Testing
 
