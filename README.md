@@ -39,4 +39,4 @@ If `start.sh` fails, try removing `backend/venv`, `node_modules` and `yarn.lock`
 
 Currently there are only backend unit tests.
 
-To run them: `./scripts/docker-start.sh; ./scripts/test_backend.sh
+To run them: `./scripts/docker-start.sh; ./scripts/test_backend.sh`
