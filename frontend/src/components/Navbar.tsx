@@ -14,10 +14,11 @@ function Navbar() {
                 alt="State Restorer Logo"
                 boxSize="48px"
               ></Image>
+              <Box fontSize="xl">
+                {/* FIXME: don't underline when hovered */}
+                <b>State Restorer</b>
+              </Box>
             </Link>
-            <Box fontSize="xl">
-              <b>State Restorer</b>
-            </Box>
           </Flex>
           <Flex alignItems="center" spaceX="4" fontSize="lg">
             <Link href="/">Home</Link>
