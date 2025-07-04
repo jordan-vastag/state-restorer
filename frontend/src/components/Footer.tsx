@@ -10,7 +10,7 @@ function Footer() {
         <Flex justifyContent="space-between" width="60vw">
           <Box>© {year} State Restorer. All rights reserved.</Box>
           <Flex spaceX="4">
-            <Link href="/privacy-policy">Privacy Policy</Link>
+            <Link href="/privacy">Privacy Policy</Link>
             <Link href="/terms-and-conditions">Terms and Conditions</Link>
           </Flex>
         </Flex>
