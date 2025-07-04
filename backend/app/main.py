@@ -1,7 +1,10 @@
 from fastapi import FastAPI, Response, status
 from fastapi.middleware.cors import CORSMiddleware
 import uvicorn
+import re
+import smtplib
 
+from email.mime.text import MIMEText
 from app.core import config
 from app.core.board_state import *
 from app.core.request_schemas import Theme, AppState, Board
@@ -98,6 +101,40 @@ async def get_theme():
 @app.get("/api/board/themes")
 async def get_themes():
     return {"themes": config.CELL_COLOR_THEMES.keys()}
+
+
+@app.post("/api/user-message")
+async def send_user_message(
+    name: str, email: str, message: str, response: Response
+):
+    # TODO: write tests for this endpoint
+    if not message or not name or not email:
+        response.status_code = status.HTTP_400_BAD_REQUEST
+        return {"msg": "required argument is empty"}
+
+    email_regex = r"^[^@]+@[^@]+\.[^@]+$"
+    if not re.match(email_regex, email):
+        response.status_code = status.HTTP_400_BAD_REQUEST
+        return {"msg": "invalid email format"}
+
+    try:
+        subject = "State Restorer Message Received"
+        body = f"Name: {name}\nEmail: {email}\n\nMessage:\n{message}"
+        msg = MIMEText(body)
+        msg["Subject"] = subject
+        msg["From"] = config.EMAIL_SENDER
+        msg["To"] = config.EMAIL_RECEIVER
+
+        smtp_server = "localhost"
+        smtp_port = 25
+
+        with smtplib.SMTP(smtp_server, smtp_port) as server:
+            server.sendmail(email, config.EMAIL_RECEIVER, msg.as_string())
+    except Exception as e:
+        response.status_code = status.HTTP_500_INTERNAL_SERVER_ERROR
+        return {"msg": f"Failed to send email: {e}"}
+
+    return {"msg": "Message received successfully", "message": message}
 
 
 @app.get("/api/health")

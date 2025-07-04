@@ -17,3 +17,6 @@ CELL_COLOR_THEMES = {
         "complements": [("#ff5757", "#46cc46"), ("#69abe1", "#ffc26d")],
     },
 }
+
+EMAIL_RECEIVER = "jordanrvastag@gmail.com"
+EMAIL_SENDER = "contactus@staterestorer.com"
