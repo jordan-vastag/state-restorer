@@ -15,6 +15,10 @@ function Privacy() {
           State Restorer does not collect, store, or share any personal user
           data.
         </Text>
+        <Text fontSize="xl" mb={6}>
+          State Restorer does track usage and health metrics in order to improve
+          the site.
+        </Text>
         <Heading as="h2" size="xl" mb={4} mt={8}>
           Disclaimer
         </Heading>
