@@ -1,22 +1,27 @@
-import { Flex } from "@chakra-ui/react";
-import { Provider } from "@/components/ui/provider";
-import { Navbar, Body, Footer } from "@/components";
-import Markdown from "react-markdown";
+import { Main } from "@/layouts";
+import { Box, Heading, Text } from "@chakra-ui/react";
 
-function App() {
-  const privacyPolicy = "# Privacy Policy";
-
+function Privacy() {
   return (
-    <Provider>
-      <Flex flexDirection="column" height="100vh">
-        <Navbar />
-        <Body>
-          <Markdown>{privacyPolicy}</Markdown>
-        </Body>
-        <Footer />
-      </Flex>
-    </Provider>
+    <Main>
+      <Box maxW="800px" mx="auto" mt={12} px={4}>
+        <Heading as="h1" size="2xl" mb={6}>
+          Privacy Policy
+        </Heading>
+        <Heading as="h2" size="xl" mb={4} mt={8}>
+          Our Promise
+        </Heading>
+        <Text fontSize="xl" mb={6}>
+          State Restorer does not collect, store, or share any personal user
+          data.
+        </Text>
+        <Heading as="h2" size="xl" mb={4} mt={8}>
+          Disclaimer
+        </Heading>
+        <Text fontSize="xl">This privacy policy is subject to change.</Text>
+      </Box>
+    </Main>
   );
 }
 
-export default App;
+export default Privacy;
