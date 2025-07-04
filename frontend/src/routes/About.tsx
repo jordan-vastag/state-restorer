@@ -12,8 +12,8 @@ function About() {
           State Restorer is a game inspired by classic slide puzzles. Instead of
           rearranging tiles, players must attempt to reverse engineer the series
           of taps that result in the goal board state.
-          <br />
-          <br />
+        </Text>
+        <Text fontSize="xl" mb={10}>
           The game currently features random board generation and a basic
           difficulty system, but in the future there may be different modes,
           improved puzzle generation, and user customizable color themes. If you
@@ -21,9 +21,6 @@ function About() {
           {/* TODO: add link icon */}
           <Link href="/contact-us">contact us</Link>.
         </Text>
-        <Heading as="h2" size="xl" mb={4}>
-          The Team
-        </Heading>
         <Text fontSize="xl" mb={10}>
           State Restorer was developed by Jordan Vastag as an exercise in full
           stack web development. To view his other projects, check out his{" "}
@@ -39,10 +36,8 @@ function About() {
           <Link href="https://linkedin.com/in/jordan-vastag" target="_blank">
             LinkedIn
           </Link>
-          <br />
-          <br />
-          Thanks for playing State Restorer!
         </Text>
+        <Text fontSize="xl">Thanks for playing!</Text>
       </Box>
     </Main>
   );
