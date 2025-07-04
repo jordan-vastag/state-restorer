@@ -14,6 +14,7 @@ import { useState } from "react";
 
 const FEEDBACK_KEY = "feedback_last_submitted";
 const MAX_FEEDBACK_LENGTH = 1000;
+const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 function Contact() {
   const [name, setName] = useState("");
@@ -34,7 +35,7 @@ function Contact() {
     e.preventDefault();
     setError("");
     if (isRateLimited()) {
-      setError("You just sebnt a message. Please try again later.");
+      setError("You just sent a message. Please try again later.");
       return;
     }
     if (!name.trim()) {
@@ -43,6 +44,10 @@ function Contact() {
     }
     if (!email.trim()) {
       setError("Email is required.");
+      return;
+    }
+    if (!emailRegex.test(email)) {
+      setError("Please enter a valid email address.");
       return;
     }
     if (!feedback.trim()) {
@@ -104,6 +109,7 @@ function Contact() {
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 disabled={loading || isRateLimited()}
+                required
               />
             </Field.Root>
             <Field.Root mb={4}>
@@ -115,6 +121,7 @@ function Contact() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 disabled={loading || isRateLimited()}
+                required
               />
             </Field.Root>
             <Field.Root mb={4}>
@@ -130,6 +137,7 @@ function Contact() {
                 maxLength={MAX_FEEDBACK_LENGTH}
                 rows={6}
                 disabled={loading || isRateLimited()}
+                required
               />
               <Flex justify="space-between" width="100%">
                 <Text fontSize="sm" color="gray.500">
@@ -157,7 +165,6 @@ function Contact() {
               Send Message
             </Button>
             {isRateLimited() && (
-              // <Center>
               <>
                 <Text color="orange.500" mt={4}>
                   <Center>
@@ -168,7 +175,6 @@ function Contact() {
                   <Center>Please try again later :)</Center>
                 </Text>
               </>
-              // </Center>
             )}
           </form>
         </Box>
