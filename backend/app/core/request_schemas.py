@@ -13,3 +13,9 @@ class AppState(BaseModel):
 
 class Theme(BaseModel):
     name: str
+
+
+class UserMessage(BaseModel):
+    name: str
+    email: str
+    message: str

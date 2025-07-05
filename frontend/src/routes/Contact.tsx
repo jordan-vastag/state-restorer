@@ -1,3 +1,4 @@
+import { API_URL } from "@/constants";
 import { Main } from "@/layouts";
 import {
   Box,
@@ -14,6 +15,7 @@ import { useState } from "react";
 
 const FEEDBACK_KEY = "feedback_last_submitted";
 const MAX_FEEDBACK_LENGTH = 1000;
+const MAX_RETRIES = 3;
 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 function Contact() {
@@ -23,6 +25,8 @@ function Contact() {
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const [failCount, setFailCount] = useState(0);
+  const [outOfRetries, setOutOfRetries] = useState(false);
 
   const isRateLimited = () => {
     const last = localStorage.getItem(FEEDBACK_KEY);
@@ -31,7 +35,11 @@ function Contact() {
     return Date.now() - lastTime < 15 * 60 * 1000; // 15 minutes
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const isFormDisabled = () => {
+    return loading || isRateLimited() || outOfRetries;
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError("");
     if (isRateLimited()) {
@@ -47,7 +55,7 @@ function Contact() {
       return;
     }
     if (!emailRegex.test(email)) {
-      setError("Please enter a valid email address.");
+      setError("Please enter a valid email address e.g. username@example.com");
       return;
     }
     if (!feedback.trim()) {
@@ -56,14 +64,34 @@ function Contact() {
     }
     setLoading(true);
 
-    // TODO: send feedback to API
-    console.log("Feedback submitted:", { name, email, feedback });
+    const res = await fetch(`${API_URL}/user-message`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        name,
+        email,
+        message: feedback,
+      }),
+    });
 
-    setTimeout(() => {
-      localStorage.setItem(FEEDBACK_KEY, Date.now().toString());
-      setSubmitted(true);
+    if (!res.ok) {
       setLoading(false);
-    }, 600);
+      const fails = failCount + 1;
+      setFailCount(fails);
+      if (fails >= MAX_RETRIES) {
+        setError("This isn't working. Please try again later.");
+        setOutOfRetries(true);
+      } else {
+        setError("Failed to send message. Please try again later.");
+      }
+      return;
+    }
+
+    localStorage.setItem(FEEDBACK_KEY, Date.now().toString());
+    setSubmitted(true);
+    setLoading(false);
   };
 
   if (submitted) {
@@ -108,7 +136,7 @@ function Contact() {
                 placeholder="Your Name"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
-                disabled={loading || isRateLimited()}
+                disabled={isFormDisabled()}
                 required
               />
             </Field.Root>
@@ -120,7 +148,7 @@ function Contact() {
                 placeholder="Your Email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                disabled={loading || isRateLimited()}
+                disabled={isFormDisabled()}
                 required
               />
             </Field.Root>
@@ -136,7 +164,7 @@ function Contact() {
                 placeholder="Your Message"
                 maxLength={MAX_FEEDBACK_LENGTH}
                 rows={6}
-                disabled={loading || isRateLimited()}
+                disabled={isFormDisabled()}
                 required
               />
               <Flex justify="space-between" width="100%">
@@ -159,7 +187,7 @@ function Contact() {
               colorScheme="purple"
               size="lg"
               loading={loading}
-              disabled={isRateLimited()}
+              disabled={isFormDisabled()}
               mt={2}
             >
               Send Message

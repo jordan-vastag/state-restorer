@@ -18,5 +18,4 @@ CELL_COLOR_THEMES = {
     },
 }
 
-EMAIL_RECEIVER = "jordanrvastag@gmail.com"
-EMAIL_SENDER = "contactus@staterestorer.com"
+EMAIL = "jordanrvastag@gmail.com"

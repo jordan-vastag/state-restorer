@@ -7,7 +7,7 @@ import smtplib
 from email.mime.text import MIMEText
 from app.core import config
 from app.core.board_state import *
-from app.core.request_schemas import Theme, AppState, Board
+from app.core.request_schemas import Theme, AppState, Board, UserMessage
 from app.core.context import current_cell_color_theme
 
 app = FastAPI(
@@ -105,36 +105,37 @@ async def get_themes():
 
 @app.post("/api/user-message")
 async def send_user_message(
-    name: str, email: str, message: str, response: Response
+    user_message: UserMessage, response: Response
 ):
     # TODO: write tests for this endpoint
-    if not message or not name or not email:
+    if not user_message.message or not user_message.name or not user_message.email:
         response.status_code = status.HTTP_400_BAD_REQUEST
         return {"msg": "required argument is empty"}
 
     email_regex = r"^[^@]+@[^@]+\.[^@]+$"
-    if not re.match(email_regex, email):
+    if not re.match(email_regex, user_message.email):
         response.status_code = status.HTTP_400_BAD_REQUEST
         return {"msg": "invalid email format"}
 
     try:
-        subject = "State Restorer Message Received"
-        body = f"Name: {name}\nEmail: {email}\n\nMessage:\n{message}"
+        subject = "State Restorer: User Message"
+        body = f"Name: {user_message.name}\nEmail: {user_message.email}\n\nMessage:\n{user_message.message}"
         msg = MIMEText(body)
         msg["Subject"] = subject
-        msg["From"] = config.EMAIL_SENDER
-        msg["To"] = config.EMAIL_RECEIVER
+        msg["From"] = config.EMAIL
+        msg["To"] = config.EMAIL
 
         smtp_server = "localhost"
         smtp_port = 25
 
         with smtplib.SMTP(smtp_server, smtp_port) as server:
-            server.sendmail(email, config.EMAIL_RECEIVER, msg.as_string())
+            server.sendmail(user_message.email,
+                            config.EMAIL_RECEIVER, msg.as_string())
     except Exception as e:
         response.status_code = status.HTTP_500_INTERNAL_SERVER_ERROR
         return {"msg": f"Failed to send email: {e}"}
 
-    return {"msg": "Message received successfully", "message": message}
+    return {"msg": "Message received successfully"}
 
 
 @app.get("/api/health")
