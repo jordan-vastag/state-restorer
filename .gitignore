@@ -205,3 +205,4 @@ node_modules
 .docker/
 *yarn.lock
 *pyproject.toml
+.claude/
