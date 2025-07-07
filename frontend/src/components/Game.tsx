@@ -2,9 +2,9 @@ import {
   Board,
   ConfirmationModal,
   GameBoard,
-  SolutionModal,
-  SettingsModal,
   HowToPlayModal,
+  SettingsModal,
+  SolutionModal,
 } from "@/components";
 import { toaster } from "@/components/ui/toaster";
 import { API_URL, DEFAULT_BOARD_SIZE, Difficulty } from "@/constants";
@@ -117,7 +117,6 @@ function Game(props: GameProps) {
   };
 
   const undoMove = async () => {
-    console.log("board -> ", cells);
     if (moveHistory.length < 1) {
       toaster.create({
         description: "No moves performed. Cannot undo.",
@@ -192,7 +191,7 @@ function Game(props: GameProps) {
   const confirmNewGame = async () => {
     setIsNewGameModalOpen(false);
     await generateNewBoard();
-    
+
     toaster.create({
       description: "New board generated.",
       type: "info",
@@ -207,16 +206,14 @@ function Game(props: GameProps) {
     setIsSolutionModalOpen(true);
   };
 
-  // Shared function to generate and set up a new board
   const generateNewBoard = async () => {
     const newCells = await fetchNewBoard();
     let targetBoard = await fetchTargetBoard(newCells);
-    
-    // Ensure new game isn't already won
+
     while (gameIsWon(newCells, targetBoard?.board)) {
       targetBoard = await fetchTargetBoard(newCells);
     }
-    
+
     setCells(newCells);
     setInitialCells(newCells);
     setTargetCells(targetBoard?.board);
@@ -228,7 +225,6 @@ function Game(props: GameProps) {
     generateNewBoard();
   }, []);
 
-  // Regenerate board when difficulty changes
   useEffect(() => {
     if (props.difficulty) {
       generateNewBoard();

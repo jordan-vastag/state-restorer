@@ -209,9 +209,6 @@ const SettingsModal = (props: SettingsModalProps) => {
                 <Button fontSize="md">Done</Button>
               </Dialog.ActionTrigger>
             </Dialog.Footer>
-            {/* <Dialog.CloseTrigger asChild>
-              <CloseButton size="md" />
-            </Dialog.CloseTrigger> */}
           </Dialog.Content>
         </Dialog.Positioner>
       </Portal>
