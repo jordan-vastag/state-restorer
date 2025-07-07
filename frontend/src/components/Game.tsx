@@ -3,6 +3,8 @@ import {
   ConfirmationModal,
   GameBoard,
   SolutionModal,
+  SettingsModal,
+  HowToPlayModal,
 } from "@/components";
 import { toaster } from "@/components/ui/toaster";
 import { API_URL, DEFAULT_BOARD_SIZE, Difficulty } from "@/constants";
@@ -189,18 +191,8 @@ function Game(props: GameProps) {
 
   const confirmNewGame = async () => {
     setIsNewGameModalOpen(false);
-    const newCells = await fetchNewBoard();
-    setCells(newCells);
-    setInitialCells(newCells);
-
-    let targetBoard = await fetchTargetBoard(newCells);
-    while (gameIsWon(newCells, targetBoard?.board)) {
-      targetBoard = await fetchTargetBoard(newCells);
-    }
-    setTargetCells(targetBoard?.board);
-    setSolutionMoves(targetBoard?.solution);
-    setMoveHistory([]);
-
+    await generateNewBoard();
+    
     toaster.create({
       description: "New board generated.",
       type: "info",
@@ -215,35 +207,31 @@ function Game(props: GameProps) {
     setIsSolutionModalOpen(true);
   };
 
-  useEffect(() => {
-    const init = async () => {
-      const initialCells = await fetchNewBoard();
-      const targetBoard = await fetchTargetBoard(initialCells);
-      setCells(initialCells);
-      setInitialCells(initialCells);
-      setTargetCells(targetBoard?.board);
-      setSolutionMoves(targetBoard?.solution);
-      setMoveHistory([]);
-    };
+  // Shared function to generate and set up a new board
+  const generateNewBoard = async () => {
+    const newCells = await fetchNewBoard();
+    let targetBoard = await fetchTargetBoard(newCells);
+    
+    // Ensure new game isn't already won
+    while (gameIsWon(newCells, targetBoard?.board)) {
+      targetBoard = await fetchTargetBoard(newCells);
+    }
+    
+    setCells(newCells);
+    setInitialCells(newCells);
+    setTargetCells(targetBoard?.board);
+    setSolutionMoves(targetBoard?.solution);
+    setMoveHistory([]);
+  };
 
-    init();
+  useEffect(() => {
+    generateNewBoard();
   }, []);
 
   // Regenerate board when difficulty changes
   useEffect(() => {
-    const regenerateBoard = async () => {
-      const newCells = await fetchNewBoard();
-      const targetBoard = await fetchTargetBoard(newCells);
-
-      setCells(newCells);
-      setInitialCells(newCells);
-      setTargetCells(targetBoard?.board);
-      setSolutionMoves(targetBoard?.solution);
-      setMoveHistory([]);
-    };
-
     if (props.difficulty) {
-      regenerateBoard();
+      generateNewBoard();
     }
   }, [props.difficulty, boardSize]);
 
@@ -311,6 +299,11 @@ function Game(props: GameProps) {
             >
               Show Solution
             </Button>
+            <HowToPlayModal />
+            <SettingsModal
+              onDifficultyChange={props.onDifficultyChange}
+              currentDifficulty={props.difficulty}
+            />
           </Flex>
         </Flex>
       </Container>

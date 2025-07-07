@@ -1,14 +1,8 @@
-import { HowToPlayModal, SettingsModal } from "@/components";
 import { SOURCE_CODE_GITHUB_URL } from "@/constants";
 import { Box, Flex, Image, Link, Text } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 
-interface NavbarProps {
-  onDifficultyChange: (difficulty: string) => void;
-  currentDifficulty: string;
-}
-
-function Navbar(props: NavbarProps) {
+function Navbar() {
   const [hoveredItem, setHoveredItem] = useState<string | null>(null);
   const [selectedItem, setSelectedItem] = useState<string>("home");
 
@@ -102,11 +96,6 @@ function Navbar(props: NavbarProps) {
               icon="mail.svg"
               label="Contact"
               itemKey="contact"
-            />
-            <HowToPlayModal />
-            <SettingsModal
-              onDifficultyChange={props.onDifficultyChange}
-              currentDifficulty={props.currentDifficulty}
             />
             <Link href={SOURCE_CODE_GITHUB_URL} target="_blank">
               <Image

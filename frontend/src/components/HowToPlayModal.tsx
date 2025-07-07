@@ -16,13 +16,13 @@ const HowToPlayModal = () => {
         <Button
           variant="ghost"
           _hover={{ opacity: 0.7 }}
-          padding="0"
+          padding="2"
           minW="auto"
-          h="auto"
+          height="40px"
         >
-          <Image 
-            boxSize="6" 
-            src="question-mark.svg" 
+          <Image
+            boxSize="8"
+            src="question-mark.svg"
             alt="How to play"
             transition="opacity 0.8s ease"
           />
@@ -34,21 +34,21 @@ const HowToPlayModal = () => {
           <Dialog.Content>
             <Dialog.Header>
               <Dialog.Title asChild>
-                <Heading size="xl">How to Play</Heading>
+                <Heading fontSize="xl">How to Play</Heading>
               </Dialog.Title>
             </Dialog.Header>
             <Dialog.Body>
               <VStack align="stretch" gap={4}>
-                <Text>
-                  <strong>Goal:</strong>Win by getting your board to look like
+                <Text fontSize="md">
+                  <strong>Goal:</strong> Win by getting your board to look like
                   the goal board.
                 </Text>
-                <Text>
+                <Text fontSize="md">
                   <strong>How:</strong> Click on tiles to flip their color. When
                   you click on a tile, it flips the color of adjacent tiles and
                   the tile you clicked.
                 </Text>
-                <Text>
+                <Text fontSize="md">
                   <strong>Controls:</strong> You can undo, reset, or start a new
                   game at any time using the buttons below the board.
                 </Text>
@@ -56,7 +56,7 @@ const HowToPlayModal = () => {
             </Dialog.Body>
             <Dialog.Footer>
               <Dialog.ActionTrigger asChild>
-                <Button>Got it!</Button>
+                <Button fontSize="md">Got it!</Button>
               </Dialog.ActionTrigger>
             </Dialog.Footer>
             <Dialog.CloseTrigger asChild>

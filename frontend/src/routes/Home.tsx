@@ -11,8 +11,11 @@ function App() {
   };
 
   return (
-    <Main difficulty={difficulty} onDifficultyChange={handleDifficultyChange}>
-      <Game difficulty={difficulty} onDifficultyChange={handleDifficultyChange} />
+    <Main>
+      <Game 
+        difficulty={difficulty} 
+        onDifficultyChange={handleDifficultyChange}
+      />
     </Main>
   );
 }

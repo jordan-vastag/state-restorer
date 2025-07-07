@@ -20,17 +20,19 @@ const ConfirmationModal = (props: ConfirmationModalProps) => {
         <Dialog.Positioner>
           <Dialog.Content>
             <Dialog.Header>
-              <Dialog.Title>{props.title}</Dialog.Title>
+              <Dialog.Title fontSize="xl">{props.title}</Dialog.Title>
             </Dialog.Header>
             <Dialog.Body>
-              <Text fontSize="md">{props.message}</Text>
+              <Text fontSize="lg">{props.message}</Text>
             </Dialog.Body>
             <Dialog.Footer>
               <Flex gap={3} justifyContent="flex-end">
-                <Button variant="outline" onClick={props.onClose}>
+                <Button variant="outline" onClick={props.onClose} fontSize="md">
                   No
                 </Button>
-                <Button onClick={props.onConfirm}>Yes</Button>
+                <Button onClick={props.onConfirm} fontSize="md">
+                  Yes
+                </Button>
               </Flex>
             </Dialog.Footer>
           </Dialog.Content>

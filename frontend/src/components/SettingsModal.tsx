@@ -1,6 +1,6 @@
+import { Difficulty } from "@/constants";
 import {
   Button,
-  CloseButton,
   Dialog,
   Heading,
   Image,
@@ -8,7 +8,6 @@ import {
   RadioGroup,
   VStack,
 } from "@chakra-ui/react";
-import { Difficulty } from "@/constants";
 import { useState } from "react";
 
 interface SettingsModalProps {
@@ -34,13 +33,13 @@ const SettingsModal = (props: SettingsModalProps) => {
         <Button
           variant="ghost"
           _hover={{ opacity: 0.7 }}
-          padding="0"
+          padding="2"
           minW="auto"
-          h="auto"
+          height="40px"
         >
-          <Image 
-            boxSize="6" 
-            src="settings.svg" 
+          <Image
+            boxSize="8"
+            src="settings.svg"
             alt="Settings Cog"
             transition="opacity 0.8s ease"
           />
@@ -52,7 +51,7 @@ const SettingsModal = (props: SettingsModalProps) => {
           <Dialog.Content>
             <Dialog.Header>
               <Dialog.Title asChild>
-                <Heading size="xl">Settings</Heading>
+                <Heading fontSize="xl">Settings</Heading>
               </Dialog.Title>
             </Dialog.Header>
             <Dialog.Body>
@@ -105,7 +104,9 @@ const SettingsModal = (props: SettingsModalProps) => {
                           },
                         }}
                       />
-                      <RadioGroup.ItemText>Easy (2x2)</RadioGroup.ItemText>
+                      <RadioGroup.ItemText fontSize="md">
+                        Easy (2x2)
+                      </RadioGroup.ItemText>
                     </RadioGroup.Item>
                     <RadioGroup.Item
                       value={Difficulty.MEDIUM}
@@ -149,7 +150,9 @@ const SettingsModal = (props: SettingsModalProps) => {
                           },
                         }}
                       />
-                      <RadioGroup.ItemText>Medium (3x3)</RadioGroup.ItemText>
+                      <RadioGroup.ItemText fontSize="md">
+                        Medium (3x3)
+                      </RadioGroup.ItemText>
                     </RadioGroup.Item>
                     <RadioGroup.Item
                       value={Difficulty.HARD}
@@ -193,7 +196,9 @@ const SettingsModal = (props: SettingsModalProps) => {
                           },
                         }}
                       />
-                      <RadioGroup.ItemText>Hard (4x4)</RadioGroup.ItemText>
+                      <RadioGroup.ItemText fontSize="md">
+                        Hard (4x4)
+                      </RadioGroup.ItemText>
                     </RadioGroup.Item>
                   </VStack>
                 </RadioGroup.Root>
@@ -201,12 +206,12 @@ const SettingsModal = (props: SettingsModalProps) => {
             </Dialog.Body>
             <Dialog.Footer>
               <Dialog.ActionTrigger asChild>
-                <Button>Close</Button>
+                <Button fontSize="md">Done</Button>
               </Dialog.ActionTrigger>
             </Dialog.Footer>
-            <Dialog.CloseTrigger asChild>
-              <CloseButton size="sm" />
-            </Dialog.CloseTrigger>
+            {/* <Dialog.CloseTrigger asChild>
+              <CloseButton size="md" />
+            </Dialog.CloseTrigger> */}
           </Dialog.Content>
         </Dialog.Positioner>
       </Portal>

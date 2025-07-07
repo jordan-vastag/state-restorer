@@ -21,7 +21,7 @@ const SolutionModal = (props: SolutionModalProps) => {
           <Dialog.Positioner>
             <Dialog.Content>
               <Dialog.Header>
-                <Dialog.Title>Solution</Dialog.Title>
+                <Dialog.Title fontSize="xl">Solution</Dialog.Title>
               </Dialog.Header>
               <Dialog.Body>
                 <Board
@@ -35,10 +35,12 @@ const SolutionModal = (props: SolutionModalProps) => {
                   alignItems="center"
                   width="full"
                 >
-                  <Text fontSize="sm" color="gray.600">
+                  <Text fontSize="md" color="gray.600">
                     Note: this may not be the only solution
                   </Text>
-                  <Button onClick={props.onClose}>Close</Button>
+                  <Button fontSize="md" onClick={props.onClose}>
+                    Close
+                  </Button>
                 </Flex>
               </Dialog.Footer>
             </Dialog.Content>
