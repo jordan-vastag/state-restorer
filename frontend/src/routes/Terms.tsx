@@ -9,13 +9,24 @@ function Terms() {
           Terms and Conditions
         </Heading>
         <Text fontSize="xl" mb={6}>
-          State Restorer is provided for personal and non-commercial use only.
-          You may not use this game or its content for commercial purposes.
+          State Restorer is provided for personal use and content creation
+          purposes only.
         </Text>
         <Text fontSize="xl" mb={6}>
-          If you use State Restorer to create content (such as videos, articles,
-          or streams), please include a link to the game in your content or its
-          description.
+          If you use State Restorer to create content (such as YouTube videos,
+          TikToks, Twitch streams, articles, etc.), monetized or not, please
+          include a link to the game in the content itself or its description.
+        </Text>
+        <Heading as="h2" size="xl" mb={4} mt={8}>
+          Additional Terms
+        </Heading>
+        <Text fontSize="xl" mb={4}>
+          <u>User Conduct:</u> Users agree not to use State Restorer for any
+          unlawful activities or to attempt to disrupt or harm the service.
+        </Text>
+        <Text fontSize="xl" mb={6}>
+          <u>Changes to Terms:</u> Continued use of State Restorer after changes
+          to these terms constitutes acceptance of those changes.
         </Text>
         <Heading as="h2" size="xl" mb={4} mt={8}>
           Disclaimer

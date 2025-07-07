@@ -3,6 +3,7 @@ import { Box, Center, Flex, For, SimpleGrid } from "@chakra-ui/react";
 interface boardProps {
   cells: string[][];
   solutionMoves?: number[][];
+  boardSquareSize?: string;
 }
 
 const Board = (props: boardProps) => {
@@ -10,15 +11,18 @@ const Board = (props: boardProps) => {
     if (solutionMoves === undefined) {
       throw new Error("solutionMoves is undefined");
     } else {
-      const index = solutionMoves.findIndex(
-        (move) =>
-          move.length === cell.length &&
-          move.every((value, i) => value === cell[i])
-      );
+      const indices: number[] = [];
+      solutionMoves.forEach((move, index) => {
+        if (move.length === cell.length &&
+            move.every((value, i) => value === cell[i])) {
+          indices.push(index + 1);
+        }
+      });
 
       return {
-        inSolution: index !== -1,
-        index: index,
+        inSolution: indices.length > 0,
+        indices: indices,
+        displayText: indices.join(", "),
       };
     }
   };
@@ -34,7 +38,7 @@ const Board = (props: boardProps) => {
                     {(item: string, column: number) => (
                       <Box
                         key={row + "-" + column}
-                        boxSize="14"
+                        boxSize={props.boardSquareSize || "14"}
                         borderRadius="sm"
                         bg={item}
                       />
@@ -65,7 +69,7 @@ const Board = (props: boardProps) => {
                         return (
                           <Box
                             key={row + "-" + column}
-                            boxSize="14"
+                            boxSize={props.boardSquareSize || "14"}
                             borderRadius="sm"
                             borderColor="green.500"
                             borderWidth="3px"
@@ -75,17 +79,14 @@ const Board = (props: boardProps) => {
                             justifyContent="center"
                             fontSize="2xl"
                           >
-                            {
-                              /* FIXME: what do when a cell appears twice in solutionMoves?   */
-                              result.index + 1
-                            }
+                            {result.displayText}
                           </Box>
                         );
                       } else {
                         return (
                           <Box
                             key={row + "-" + column}
-                            boxSize="14"
+                            boxSize={props.boardSquareSize || "14"}
                             borderRadius="sm"
                             bg={item}
                           />

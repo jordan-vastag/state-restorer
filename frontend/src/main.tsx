@@ -3,7 +3,6 @@ import {
   Contact,
   Error,
   Home,
-  HowToPlay,
   NotFound,
   Privacy,
   Terms,
@@ -23,7 +22,6 @@ createRoot(document.getElementById("root")!).render(
         <Route path="/contact-us" element={<Contact />} />
         <Route path="/privacy" element={<Privacy />} />
         <Route path="/terms-and-conditions" element={<Terms />} />
-        <Route path="/how-to-play" element={<HowToPlay />} />
         <Route path="/error" element={<Error />} />
         <Route path="*" element={<NotFound />} />
       </Routes>

@@ -1,6 +1,12 @@
-const DEFAULT_BOARD_SIZE = 3; // TODO: add difficulties
+const DEFAULT_BOARD_SIZE = 3;
 const API_URL = import.meta.env.VITE_API_URL;
 const SOURCE_CODE_GITHUB_URL =
   "https://github.com/jordan-vastag/state-restorer";
 
-export { API_URL, DEFAULT_BOARD_SIZE, SOURCE_CODE_GITHUB_URL };
+enum Difficulty {
+  EASY = "easy",
+  MEDIUM = "medium",
+  HARD = "hard",
+}
+
+export { API_URL, DEFAULT_BOARD_SIZE, Difficulty, SOURCE_CODE_GITHUB_URL };

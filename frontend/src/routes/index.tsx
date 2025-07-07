@@ -1,10 +1,9 @@
-import Home from "./Home";
+import NotFound from "./404NotFound";
 import About from "./About";
+import Contact from "./Contact";
+import Error from "./GenericError";
+import Home from "./Home";
 import Privacy from "./Privacy";
 import Terms from "./Terms";
-import Contact from "./Contact";
-import NotFound from "./404NotFound";
-import HowToPlay from "./HowToPlay";
-import Error from "./GenericError";
 
-export { Home, About, Privacy, Terms, Contact, NotFound, HowToPlay, Error };
+export { About, Contact, Error, Home, NotFound, Privacy, Terms };

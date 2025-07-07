@@ -1,24 +1,62 @@
-import { Board, GameBoard, SolutionModal } from "@/components";
+import {
+  Board,
+  ConfirmationModal,
+  GameBoard,
+  SolutionModal,
+} from "@/components";
 import { toaster } from "@/components/ui/toaster";
-import { API_URL, DEFAULT_BOARD_SIZE } from "@/constants";
+import { API_URL, DEFAULT_BOARD_SIZE, Difficulty } from "@/constants";
 import { Box, Button, Container, Flex } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 
-// TODO: verify new board and target board are not the same
+interface GameProps {
+  difficulty: string;
+  onDifficultyChange: (difficulty: string) => void;
+}
 
-function Game() {
-  const boardSize = DEFAULT_BOARD_SIZE;
+function Game(props: GameProps) {
+  const getDifficultySize = (difficulty: string) => {
+    switch (difficulty) {
+      case Difficulty.EASY:
+        return 2;
+      case Difficulty.MEDIUM:
+        return 3;
+      case Difficulty.HARD:
+        return 4;
+      default:
+        return DEFAULT_BOARD_SIZE;
+    }
+  };
+
+  const getTileSize = (difficulty: string) => {
+    switch (difficulty) {
+      case Difficulty.EASY:
+        return "2xs";
+      case Difficulty.MEDIUM:
+        return "3xs";
+      case Difficulty.HARD:
+        return "10rem";
+      default:
+        return "3xs";
+    }
+  };
+
+  const boardSize = getDifficultySize(props.difficulty);
+  const tileSize = getTileSize(props.difficulty);
   const buttonBorderRadius = "md";
   const buttonFontSize = "md";
 
-  const initializedCells = Array<string[]>(DEFAULT_BOARD_SIZE).fill(
-    Array(DEFAULT_BOARD_SIZE).fill("#f6f6f6")
+  const initializedCells = Array<string[]>(boardSize).fill(
+    Array(boardSize).fill("#dddddd")
   );
   const [cells, setCells] = useState(initializedCells);
   const [initialCells, setInitialCells] = useState(initializedCells);
   const [targetCells, setTargetCells] = useState(initializedCells);
   const [solutionMoves, setSolutionMoves] = useState<number[][]>([]);
   const [moveHistory, setMoveHistory] = useState<number[][]>([]);
+  const [isNewGameModalOpen, setIsNewGameModalOpen] = useState(false);
+  const [isResetModalOpen, setIsResetModalOpen] = useState(false);
+  const [isSolutionModalOpen, setIsSolutionModalOpen] = useState(false);
 
   const fetchNewBoard = async () => {
     const params = new URLSearchParams({ size: boardSize.toString() });
@@ -120,7 +158,7 @@ function Game() {
     }
   };
 
-  const resetBoard = () => {
+  const handleResetClick = () => {
     if (moveHistory.length < 1) {
       toaster.create({
         description: "No moves performed. Cannot reset.",
@@ -128,16 +166,29 @@ function Game() {
       });
       return;
     }
+    setIsResetModalOpen(true);
+  };
 
+  const confirmReset = () => {
+    setIsResetModalOpen(false);
     setCells(initialCells);
+    setMoveHistory([]);
     toaster.create({
       description: "Board reset.",
       type: "info",
     });
   };
 
-  const newGame = async () => {
-    // TODO: add "Are you sure?" confirmation modal
+  const cancelReset = () => {
+    setIsResetModalOpen(false);
+  };
+
+  const handleNewGameClick = () => {
+    setIsNewGameModalOpen(true);
+  };
+
+  const confirmNewGame = async () => {
+    setIsNewGameModalOpen(false);
     const newCells = await fetchNewBoard();
     setCells(newCells);
     setInitialCells(newCells);
@@ -156,6 +207,14 @@ function Game() {
     });
   };
 
+  const cancelNewGame = () => {
+    setIsNewGameModalOpen(false);
+  };
+
+  const handleShowSolution = () => {
+    setIsSolutionModalOpen(true);
+  };
+
   useEffect(() => {
     const init = async () => {
       const initialCells = await fetchNewBoard();
@@ -164,10 +223,29 @@ function Game() {
       setInitialCells(initialCells);
       setTargetCells(targetBoard?.board);
       setSolutionMoves(targetBoard?.solution);
+      setMoveHistory([]);
     };
 
     init();
   }, []);
+
+  // Regenerate board when difficulty changes
+  useEffect(() => {
+    const regenerateBoard = async () => {
+      const newCells = await fetchNewBoard();
+      const targetBoard = await fetchTargetBoard(newCells);
+
+      setCells(newCells);
+      setInitialCells(newCells);
+      setTargetCells(targetBoard?.board);
+      setSolutionMoves(targetBoard?.solution);
+      setMoveHistory([]);
+    };
+
+    if (props.difficulty) {
+      regenerateBoard();
+    }
+  }, [props.difficulty, boardSize]);
 
   return (
     <>
@@ -175,15 +253,20 @@ function Game() {
         <Flex
           flexDirection="column"
           alignItems="center"
-          justifyContent="center"
+          justifyContent="flex-start"
+          minHeight="calc(100vh - 120px)"
+          maxHeight="calc(100vh - 120px)"
+          overflow="auto"
+          paddingY={4}
+          gap="8"
         >
-          <Box margin="5">
+          <Box>
             <Box textAlign="center" fontSize="2xl" marginBottom="2">
               Goal:
             </Box>
-            <Board cells={targetCells} />
+            <Board cells={targetCells} boardSquareSize="14" />
           </Box>
-          <Box margin="5">
+          <Box>
             <GameBoard
               targetCells={targetCells}
               cells={cells}
@@ -191,44 +274,69 @@ function Game() {
               moveHistory={moveHistory}
               setMoveHistory={setMoveHistory}
               gameIsWon={gameIsWon}
+              tileSize={tileSize}
             />
           </Box>
-        </Flex>
-        <Flex
-          spaceX="5"
-          alignItems="center"
-          justifyContent="center"
-          borderRadius="2xl"
-        >
-          <Button
-            borderRadius={buttonBorderRadius}
-            fontSize={buttonFontSize}
-            onClick={undoMove}
+          <Flex
+            spaceX="5"
+            alignItems="center"
+            justifyContent="center"
+            borderRadius="2xl"
           >
-            Undo
-          </Button>
-          <Button
-            borderRadius={buttonBorderRadius}
-            fontSize={buttonFontSize}
-            onClick={resetBoard}
-          >
-            Reset
-          </Button>
-          <SolutionModal
-            buttonBorderRadius={buttonBorderRadius}
-            buttonFontSize={buttonFontSize}
-            solutionMoves={solutionMoves}
-            cells={initializedCells}
-          />
-          <Button
-            borderRadius={buttonBorderRadius}
-            fontSize={buttonFontSize}
-            onClick={newGame}
-          >
-            New Game
-          </Button>
+            <Button
+              borderRadius={buttonBorderRadius}
+              fontSize={buttonFontSize}
+              onClick={undoMove}
+            >
+              Undo
+            </Button>
+            <Button
+              borderRadius={buttonBorderRadius}
+              fontSize={buttonFontSize}
+              onClick={handleResetClick}
+            >
+              Reset
+            </Button>
+            <Button
+              borderRadius={buttonBorderRadius}
+              fontSize={buttonFontSize}
+              onClick={handleNewGameClick}
+            >
+              New Game
+            </Button>
+            <Button
+              borderRadius={buttonBorderRadius}
+              fontSize={buttonFontSize}
+              onClick={handleShowSolution}
+            >
+              Show Solution
+            </Button>
+          </Flex>
         </Flex>
       </Container>
+
+      <ConfirmationModal
+        isOpen={isNewGameModalOpen}
+        onClose={cancelNewGame}
+        onConfirm={confirmNewGame}
+        title="Are you sure?"
+        message="This will generate a new board."
+      />
+
+      <ConfirmationModal
+        isOpen={isResetModalOpen}
+        onClose={cancelReset}
+        onConfirm={confirmReset}
+        title="Are you sure?"
+        message="This will reset the board and erase your move history. This cannot be undone."
+      />
+
+      <SolutionModal
+        isOpen={isSolutionModalOpen}
+        onClose={() => setIsSolutionModalOpen(false)}
+        solutionMoves={solutionMoves}
+        cells={initializedCells}
+      />
     </>
   );
 }

@@ -1,9 +1,9 @@
-import { Button, CloseButton, Dialog, Portal } from "@chakra-ui/react";
 import { Board } from "@/components";
+import { Button, Dialog, Flex, Portal, Text } from "@chakra-ui/react";
 
 interface SolutionModalProps {
-  buttonBorderRadius: string;
-  buttonFontSize: string;
+  isOpen: boolean;
+  onClose: () => void;
   solutionMoves: number[][];
   cells: string[][];
 }
@@ -11,15 +11,11 @@ interface SolutionModalProps {
 const SolutionModal = (props: SolutionModalProps) => {
   return (
     <>
-      <Dialog.Root placement="center">
-        <Dialog.Trigger asChild>
-          <Button
-            borderRadius={props.buttonBorderRadius}
-            fontSize={props.buttonFontSize}
-          >
-            Show Solution
-          </Button>
-        </Dialog.Trigger>
+      <Dialog.Root
+        open={props.isOpen}
+        onOpenChange={(details) => !details.open && props.onClose()}
+        placement="center"
+      >
         <Portal>
           <Dialog.Backdrop />
           <Dialog.Positioner>
@@ -34,13 +30,17 @@ const SolutionModal = (props: SolutionModalProps) => {
                 />
               </Dialog.Body>
               <Dialog.Footer>
-                <Dialog.ActionTrigger asChild>
-                  <Button>Close</Button>
-                </Dialog.ActionTrigger>
+                <Flex
+                  justifyContent="space-between"
+                  alignItems="center"
+                  width="full"
+                >
+                  <Text fontSize="sm" color="gray.600">
+                    Note: this may not be the only solution
+                  </Text>
+                  <Button onClick={props.onClose}>Close</Button>
+                </Flex>
               </Dialog.Footer>
-              <Dialog.CloseTrigger asChild>
-                <CloseButton size="sm" />
-              </Dialog.CloseTrigger>
             </Dialog.Content>
           </Dialog.Positioner>
         </Portal>
