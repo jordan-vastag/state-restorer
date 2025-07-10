@@ -126,19 +126,31 @@ async def send_user_message(
         return {"msg": "invalid email format"}
 
     try:
+        # Check if Gmail credentials are configured
+        if not config.GMAIL_EMAIL or not config.GMAIL_APP_PASSWORD:
+            logger.error("Gmail credentials not configured")
+            response.status_code = status.HTTP_500_INTERNAL_SERVER_ERROR
+            return {"msg": "Email service not configured"}
+
         subject = "State Restorer: User Message"
         body = f"Name: {user_message.name}\nEmail: {user_message.email}\n\nMessage:\n{user_message.message}"
         msg = MIMEText(body)
         msg["Subject"] = subject
-        msg["From"] = config.EMAIL
-        msg["To"] = config.EMAIL
+        msg["From"] = config.GMAIL_EMAIL
+        msg["To"] = config.RECIPIENT_EMAIL
 
-        smtp_server = "localhost"
-        smtp_port = 25
+        # Gmail SMTP configuration
+        smtp_server = "smtp.gmail.com"
+        smtp_port = 587
 
         with smtplib.SMTP(smtp_server, smtp_port) as server:
-            server.sendmail(user_message.email,
-                            config.EMAIL, msg.as_string())
+            server.starttls()  # Enable TLS encryption
+            server.login(config.GMAIL_EMAIL, config.GMAIL_APP_PASSWORD)
+            server.sendmail(config.GMAIL_EMAIL,
+                            config.RECIPIENT_EMAIL, msg.as_string())
+
+        logger.info(
+            f"Email sent successfully - {user_message.email} ({user_message.name})")
     except Exception as e:
         logger.error(f"Failed to send email: {e}")
         response.status_code = status.HTTP_500_INTERNAL_SERVER_ERROR

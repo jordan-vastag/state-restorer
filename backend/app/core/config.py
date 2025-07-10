@@ -1,3 +1,8 @@
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
+
 PROJECT_NAME = "state-restorer"
 
 PORT = 7331
@@ -18,4 +23,7 @@ CELL_COLOR_THEMES = {
     },
 }
 
-EMAIL = "jordanrvastag@gmail.com"
+# Email Configuration
+GMAIL_EMAIL = os.getenv("GMAIL_EMAIL")
+GMAIL_APP_PASSWORD = os.getenv("GMAIL_APP_PASSWORD")
+RECIPIENT_EMAIL = os.getenv("RECIPIENT_EMAIL", "jordanrvastag@gmail.com")
