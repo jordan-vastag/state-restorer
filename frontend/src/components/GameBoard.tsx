@@ -8,7 +8,7 @@ interface gameBoardProps {
   setMoveHistory: CallableFunction;
   setCells: CallableFunction;
   gameIsWon: CallableFunction;
-  tileSize: string;
+  tileSize: string | { base: string; md: string };
 }
 
 const GameBoard = (props: gameBoardProps) => {
@@ -17,10 +17,10 @@ const GameBoard = (props: gameBoardProps) => {
       <Center>
         <SimpleGrid
           columns={props.cells.length}
-          gap="3"
-          padding="3"
+          gap={{ base: 3, md: 4 }}
+          padding={{ base: 3, md: 4 }}
           borderColor="gray.300"
-          borderWidth="4px"
+          borderWidth={{ base: "3px", md: "4px" }}
           borderRadius="md"
           borderStyle="solid"
           background="gray.100"

@@ -97,7 +97,7 @@ function Contact() {
   if (submitted) {
     return (
       <Main>
-        <Box maxW="600px" mx="auto" mt={12} px={4} textAlign="center">
+        <Box maxW="600px" mx="auto" mt={12} px={{ base: 6, md: 4 }} textAlign="center">
           <Text fontSize="2xl" mb={4}>
             Thank you for your feedback!
           </Text>
@@ -112,7 +112,7 @@ function Contact() {
         maxW="1100px"
         mx="auto"
         mt={12}
-        px={4}
+        px={{ base: 6, md: 4 }}
         gap={12}
         align="flex-start"
         direction={["column", "column", "row"]}

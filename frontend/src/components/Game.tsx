@@ -33,13 +33,13 @@ function Game(props: GameProps) {
   const getTileSize = (difficulty: string) => {
     switch (difficulty) {
       case Difficulty.EASY:
-        return "2xs";
+        return { base: "20", md: "28" };
       case Difficulty.MEDIUM:
-        return "3xs";
+        return { base: "16", md: "24" };
       case Difficulty.HARD:
-        return "10rem";
+        return { base: "12", md: "20" };
       default:
-        return "3xs";
+        return { base: "16", md: "24" };
     }
   };
 
@@ -233,7 +233,7 @@ function Game(props: GameProps) {
 
   return (
     <>
-      <Container>
+      <Container maxW={{ base: "100%", md: "container.xl" }} px={{ base: 2, md: 4 }}>
         <Flex
           flexDirection="column"
           alignItems="center"
@@ -241,14 +241,14 @@ function Game(props: GameProps) {
           minHeight="calc(100vh - 120px)"
           maxHeight="calc(100vh - 120px)"
           overflow="auto"
-          paddingY={4}
-          gap="8"
+          paddingY={{ base: 2, md: 4 }}
+          gap={{ base: 4, md: 8 }}
         >
           <Box>
-            <Box textAlign="center" fontSize="2xl" marginBottom="2">
+            <Box textAlign="center" fontSize={{ base: "lg", md: "2xl" }} marginBottom="2">
               Goal:
             </Box>
-            <Board cells={targetCells} boardSquareSize="14" />
+            <Board cells={targetCells} boardSquareSize={{ base: "10", md: "14" }} />
           </Box>
           <Box>
             <GameBoard
@@ -262,35 +262,41 @@ function Game(props: GameProps) {
             />
           </Box>
           <Flex
-            spaceX="5"
+            spaceX={{ base: 2, md: 5 }}
             alignItems="center"
             justifyContent="center"
             borderRadius="2xl"
+            flexWrap="wrap"
+            gap={{ base: 2, md: 0 }}
           >
             <Button
               borderRadius={buttonBorderRadius}
-              fontSize={buttonFontSize}
+              fontSize={{ base: "sm", md: buttonFontSize }}
+              size={{ base: "sm", md: "md" }}
               onClick={undoMove}
             >
               Undo
             </Button>
             <Button
               borderRadius={buttonBorderRadius}
-              fontSize={buttonFontSize}
+              fontSize={{ base: "sm", md: buttonFontSize }}
+              size={{ base: "sm", md: "md" }}
               onClick={handleResetClick}
             >
               Reset
             </Button>
             <Button
               borderRadius={buttonBorderRadius}
-              fontSize={buttonFontSize}
+              fontSize={{ base: "sm", md: buttonFontSize }}
+              size={{ base: "sm", md: "md" }}
               onClick={handleNewGameClick}
             >
               New Game
             </Button>
             <Button
               borderRadius={buttonBorderRadius}
-              fontSize={buttonFontSize}
+              fontSize={{ base: "sm", md: buttonFontSize }}
+              size={{ base: "sm", md: "md" }}
               onClick={handleShowSolution}
             >
               Show Solution

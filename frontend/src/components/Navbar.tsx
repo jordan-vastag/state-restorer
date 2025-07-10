@@ -30,11 +30,21 @@ function Navbar() {
     icon: string;
     label: string;
     itemKey: string;
-    iconOnly?: boolean;
+    iconOnly?: boolean | { base: boolean; md: boolean };
   }) => {
     const isHovered = hoveredItem === itemKey;
     const isSelected = selectedItem === itemKey;
-    const showText = !iconOnly || isHovered || isSelected;
+    
+    // Handle responsive iconOnly prop
+    const getShowText = () => {
+      if (typeof iconOnly === 'object') {
+        // For responsive breakpoints, we'll use CSS to control visibility
+        return true;
+      }
+      return !iconOnly || isHovered || isSelected;
+    };
+    
+    const showText = getShowText();
 
     return (
       <Link
@@ -59,6 +69,7 @@ function Navbar() {
           overflow="hidden"
           whiteSpace="nowrap"
           fontSize="lg"
+          display={typeof iconOnly === 'object' ? { base: "none", md: "block" } : undefined}
         >
           {label}
         </Text>
@@ -70,34 +81,52 @@ function Navbar() {
     <>
       {/* TODO: use theme color */}
       <Flex bg="whitesmoke" justifyContent="center">
-        <Flex justifyContent="space-between" width="60vw" padding="3">
+        <Flex 
+          justifyContent="space-between" 
+          width={{ base: "95vw", md: "60vw" }} 
+          padding={{ base: "2", md: "3" }}
+        >
           <Flex alignItems="center" spaceX="2">
             <Link href="/" _hover={{ textDecoration: "none" }}>
               <Image
                 src="logo/logo192.png"
                 alt="State Restorer Logo"
-                boxSize="48px"
+                boxSize={{ base: "32px", md: "48px" }}
               ></Image>
-              <Box fontSize="xl">
+              <Box fontSize={{ base: "md", md: "xl" }}>
                 <b>State Restorer</b>
               </Box>
             </Link>
           </Flex>
-          <Flex alignItems="center" spaceX="4" fontSize="lg">
-            <NavItem href="/" icon="home.svg" label="Home" itemKey="home" />
+          <Flex alignItems="center" spaceX={{ base: "4", md: "4" }} fontSize={{ base: "sm", md: "lg" }}>
+            <NavItem 
+              href="/" 
+              icon="home.svg" 
+              label="Home" 
+              itemKey="home" 
+              iconOnly={{ base: true, md: false }}
+            />
             <NavItem
               href="/about"
               icon="info.svg"
               label="About"
               itemKey="about"
+              iconOnly={{ base: true, md: false }}
             />
             <NavItem
               href="/contact-us"
               icon="mail.svg"
               label="Contact"
               itemKey="contact"
+              iconOnly={{ base: true, md: false }}
             />
-            <Link href={SOURCE_CODE_GITHUB_URL} target="_blank">
+            <Link 
+              href={SOURCE_CODE_GITHUB_URL} 
+              target="_blank"
+              display="flex"
+              alignItems="center"
+              pb={1}
+            >
               <Image
                 boxSize="6"
                 src="github-mark/github-mark-dark.svg"

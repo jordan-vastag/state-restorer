@@ -8,7 +8,7 @@ interface bodyProps {
 const Body = (props: bodyProps) => {
   return (
     <>
-      <Flex flexDirection="column" spaceY="10" height="90vh">
+      <Flex flexDirection="column" spaceY="10" flex="1" minHeight="0">
         {props.children}
       </Flex>
     </>

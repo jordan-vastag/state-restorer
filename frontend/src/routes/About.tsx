@@ -14,7 +14,7 @@ function About() {
 
   return (
     <Main>
-      <Box maxW="900px" mx="auto" mt={12} px={4}>
+      <Box maxW="900px" mx="auto" mt={{ base: 6, md: 12 }} px={{ base: 6, md: 4 }}>
         <Heading as="h1" size="2xl" mb={6}>
           About State Restorer
         </Heading>
@@ -136,7 +136,9 @@ function About() {
           </Link>
           .
         </Text>
-        <Text fontSize="xl">Thanks for playing!</Text>
+        <Text fontSize="xl" mb={8}>
+          Thanks for playing!
+        </Text>
       </Box>
     </Main>
   );

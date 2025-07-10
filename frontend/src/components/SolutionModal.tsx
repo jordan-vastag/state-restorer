@@ -19,14 +19,15 @@ const SolutionModal = (props: SolutionModalProps) => {
         <Portal>
           <Dialog.Backdrop />
           <Dialog.Positioner>
-            <Dialog.Content>
+            <Dialog.Content maxW={{ base: "95vw", md: "lg" }}>
               <Dialog.Header>
-                <Dialog.Title fontSize="xl">Solution</Dialog.Title>
+                <Dialog.Title fontSize={{ base: "lg", md: "xl" }}>Solution</Dialog.Title>
               </Dialog.Header>
               <Dialog.Body>
                 <Board
                   cells={props.cells}
                   solutionMoves={props.solutionMoves}
+                  boardSquareSize={{ base: "8", md: "12" }}
                 />
               </Dialog.Body>
               <Dialog.Footer>
@@ -34,11 +35,13 @@ const SolutionModal = (props: SolutionModalProps) => {
                   justifyContent="space-between"
                   alignItems="center"
                   width="full"
+                  flexDirection={{ base: "column", md: "row" }}
+                  gap={{ base: 3, md: 0 }}
                 >
-                  <Text fontSize="md" color="gray.600">
+                  <Text fontSize={{ base: "xs", md: "md" }} color="gray.600" textAlign={{ base: "center", md: "left" }}>
                     Note: this may not be the only solution
                   </Text>
-                  <Button fontSize="md" onClick={props.onClose}>
+                  <Button fontSize={{ base: "sm", md: "md" }} size={{ base: "sm", md: "md" }} onClick={props.onClose}>
                     Close
                   </Button>
                 </Flex>

@@ -12,7 +12,7 @@ function Main(props: props) {
   return (
     <Provider>
       <Toaster />
-      <Flex flexDirection="column">
+      <Flex flexDirection="column" minHeight="100vh">
         <Navbar />
         <Body>{props.children}</Body>
         <Footer />

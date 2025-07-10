@@ -11,7 +11,7 @@ interface tileProps {
   setMoveHistory: CallableFunction;
   setCells: CallableFunction;
   gameIsWon: CallableFunction;
-  size: string;
+  size: string | { base: string; md: string };
 }
 
 const Tile = (props: tileProps) => {

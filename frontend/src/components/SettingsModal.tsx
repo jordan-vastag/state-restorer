@@ -35,10 +35,11 @@ const SettingsModal = (props: SettingsModalProps) => {
           _hover={{ opacity: 0.7 }}
           padding="2"
           minW="auto"
-          height="40px"
+          height={{ base: "32px", md: "40px" }}
+          size={{ base: "sm", md: "md" }}
         >
           <Image
-            boxSize="8"
+            boxSize={{ base: "6", md: "8" }}
             src="settings.svg"
             alt="Settings Cog"
             transition="opacity 0.8s ease"
@@ -48,15 +49,15 @@ const SettingsModal = (props: SettingsModalProps) => {
       <Portal>
         <Dialog.Backdrop />
         <Dialog.Positioner>
-          <Dialog.Content>
+          <Dialog.Content maxW={{ base: "90vw", md: "md" }}>
             <Dialog.Header>
               <Dialog.Title asChild>
-                <Heading fontSize="xl">Settings</Heading>
+                <Heading fontSize={{ base: "lg", md: "xl" }}>Settings</Heading>
               </Dialog.Title>
             </Dialog.Header>
             <Dialog.Body>
               <VStack align="stretch" gap={4}>
-                <Heading size="md">Difficulty</Heading>
+                <Heading size={{ base: "sm", md: "md" }}>Difficulty</Heading>
                 <RadioGroup.Root
                   value={selectedDifficulty}
                   onValueChange={handleDifficultyChange}
@@ -104,7 +105,7 @@ const SettingsModal = (props: SettingsModalProps) => {
                           },
                         }}
                       />
-                      <RadioGroup.ItemText fontSize="md">
+                      <RadioGroup.ItemText fontSize={{ base: "sm", md: "md" }}>
                         Easy (2x2)
                       </RadioGroup.ItemText>
                     </RadioGroup.Item>
@@ -150,7 +151,7 @@ const SettingsModal = (props: SettingsModalProps) => {
                           },
                         }}
                       />
-                      <RadioGroup.ItemText fontSize="md">
+                      <RadioGroup.ItemText fontSize={{ base: "sm", md: "md" }}>
                         Medium (3x3)
                       </RadioGroup.ItemText>
                     </RadioGroup.Item>
@@ -196,7 +197,7 @@ const SettingsModal = (props: SettingsModalProps) => {
                           },
                         }}
                       />
-                      <RadioGroup.ItemText fontSize="md">
+                      <RadioGroup.ItemText fontSize={{ base: "sm", md: "md" }}>
                         Hard (4x4)
                       </RadioGroup.ItemText>
                     </RadioGroup.Item>
@@ -206,7 +207,7 @@ const SettingsModal = (props: SettingsModalProps) => {
             </Dialog.Body>
             <Dialog.Footer>
               <Dialog.ActionTrigger asChild>
-                <Button fontSize="md">Done</Button>
+                <Button fontSize={{ base: "sm", md: "md" }} size={{ base: "sm", md: "md" }}>Done</Button>
               </Dialog.ActionTrigger>
             </Dialog.Footer>
           </Dialog.Content>

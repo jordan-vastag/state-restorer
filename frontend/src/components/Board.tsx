@@ -3,7 +3,7 @@ import { Box, Center, Flex, For, SimpleGrid } from "@chakra-ui/react";
 interface boardProps {
   cells: string[][];
   solutionMoves?: number[][];
-  boardSquareSize?: string;
+  boardSquareSize?: string | { base: string; md: string };
 }
 
 const Board = (props: boardProps) => {
@@ -13,8 +13,10 @@ const Board = (props: boardProps) => {
     } else {
       const indices: number[] = [];
       solutionMoves.forEach((move, index) => {
-        if (move.length === cell.length &&
-            move.every((value, i) => value === cell[i])) {
+        if (
+          move.length === cell.length &&
+          move.every((value, i) => value === cell[i])
+        ) {
           indices.push(index + 1);
         }
       });
@@ -22,7 +24,7 @@ const Board = (props: boardProps) => {
       return {
         inSolution: indices.length > 0,
         indices: indices,
-        displayText: indices.join(", "),
+        displayText: indices.join(","),
       };
     }
   };
@@ -77,7 +79,7 @@ const Board = (props: boardProps) => {
                             display="flex"
                             alignItems="center"
                             justifyContent="center"
-                            fontSize="2xl"
+                            fontSize={{ base: "md", md: "2xl" }}
                           >
                             {result.displayText}
                           </Box>

@@ -4,7 +4,7 @@ import { Box, Heading, Text } from "@chakra-ui/react";
 function Privacy() {
   return (
     <Main>
-      <Box maxW="800px" mx="auto" mt={12} px={4}>
+      <Box maxW="800px" mx="auto" mt={{ base: 6, md: 12 }} px={{ base: 6, md: 4 }}>
         <Heading as="h1" size="2xl" mb={6}>
           Privacy Policy
         </Heading>
@@ -22,7 +22,7 @@ function Privacy() {
         <Heading as="h2" size="xl" mb={4} mt={8}>
           Disclaimer
         </Heading>
-        <Text fontSize="xl">This privacy policy is subject to change.</Text>
+        <Text fontSize="xl" mb={8}>This privacy policy is subject to change.</Text>
       </Box>
     </Main>
   );

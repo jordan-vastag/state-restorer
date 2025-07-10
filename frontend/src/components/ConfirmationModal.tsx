@@ -18,19 +18,19 @@ const ConfirmationModal = (props: ConfirmationModalProps) => {
       <Portal>
         <Dialog.Backdrop />
         <Dialog.Positioner>
-          <Dialog.Content>
+          <Dialog.Content maxW={{ base: "90vw", md: "md" }}>
             <Dialog.Header>
-              <Dialog.Title fontSize="xl">{props.title}</Dialog.Title>
+              <Dialog.Title fontSize={{ base: "lg", md: "xl" }}>{props.title}</Dialog.Title>
             </Dialog.Header>
             <Dialog.Body>
-              <Text fontSize="lg">{props.message}</Text>
+              <Text fontSize={{ base: "sm", md: "lg" }}>{props.message}</Text>
             </Dialog.Body>
             <Dialog.Footer>
               <Flex gap={3} justifyContent="flex-end">
-                <Button variant="outline" onClick={props.onClose} fontSize="md">
+                <Button variant="outline" onClick={props.onClose} fontSize={{ base: "sm", md: "md" }} size={{ base: "sm", md: "md" }}>
                   No
                 </Button>
-                <Button onClick={props.onConfirm} fontSize="md">
+                <Button onClick={props.onConfirm} fontSize={{ base: "sm", md: "md" }} size={{ base: "sm", md: "md" }}>
                   Yes
                 </Button>
               </Flex>

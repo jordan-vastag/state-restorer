@@ -18,10 +18,11 @@ const HowToPlayModal = () => {
           _hover={{ opacity: 0.7 }}
           padding="2"
           minW="auto"
-          height="40px"
+          height={{ base: "32px", md: "40px" }}
+          size={{ base: "sm", md: "md" }}
         >
           <Image
-            boxSize="8"
+            boxSize={{ base: "6", md: "8" }}
             src="question-mark.svg"
             alt="How to play"
             transition="opacity 0.8s ease"
@@ -31,24 +32,24 @@ const HowToPlayModal = () => {
       <Portal>
         <Dialog.Backdrop />
         <Dialog.Positioner>
-          <Dialog.Content>
+          <Dialog.Content maxW={{ base: "90vw", md: "md" }}>
             <Dialog.Header>
               <Dialog.Title asChild>
-                <Heading fontSize="xl">How to Play</Heading>
+                <Heading fontSize={{ base: "lg", md: "xl" }}>How to Play</Heading>
               </Dialog.Title>
             </Dialog.Header>
             <Dialog.Body>
               <VStack align="stretch" gap={4}>
-                <Text fontSize="md">
+                <Text fontSize={{ base: "sm", md: "md" }}>
                   <strong>Goal:</strong> Win by getting your board to look like
                   the goal board.
                 </Text>
-                <Text fontSize="md">
+                <Text fontSize={{ base: "sm", md: "md" }}>
                   <strong>How:</strong> Click on tiles to flip their color. When
                   you click on a tile, it flips the color of adjacent tiles and
                   the tile you clicked.
                 </Text>
-                <Text fontSize="md">
+                <Text fontSize={{ base: "sm", md: "md" }}>
                   <strong>Controls:</strong> You can undo, reset, or start a new
                   game at any time using the buttons below the board.
                 </Text>
@@ -56,11 +57,11 @@ const HowToPlayModal = () => {
             </Dialog.Body>
             <Dialog.Footer>
               <Dialog.ActionTrigger asChild>
-                <Button fontSize="md">Got it!</Button>
+                <Button fontSize={{ base: "sm", md: "md" }} size={{ base: "sm", md: "md" }}>Got it!</Button>
               </Dialog.ActionTrigger>
             </Dialog.Footer>
             <Dialog.CloseTrigger asChild>
-              <CloseButton size="sm" />
+              <CloseButton size={{ base: "xs", md: "sm" }} />
             </Dialog.CloseTrigger>
           </Dialog.Content>
         </Dialog.Positioner>
