@@ -3,12 +3,17 @@ from fastapi.middleware.cors import CORSMiddleware
 import uvicorn
 import re
 import smtplib
+from loguru import logger
 
 from email.mime.text import MIMEText
 from app.core import config
 from app.core.board_state import *
 from app.core.request_schemas import Theme, AppState, Board, UserMessage
 from app.core.context import current_cell_color_theme
+
+logger.remove()
+logger.add("log", rotation="1 day", retention="1 day",
+           level="DEBUG", format="{time} | {level} | {message}")
 
 app = FastAPI(
     title=config.PROJECT_NAME, docs_url="/api/docs", openapi_url="/api"
@@ -36,7 +41,8 @@ async def new_board(size: int):
 async def make_move(state: AppState, response: Response):
     try:
         validate_move(state.move, len(state.board))
-    except:
+    except Exception as e:
+        logger.error(f"Invalid move error: {e}")
         response.status_code = status.HTTP_400_BAD_REQUEST
         return {"msg": "invalid move"}
     return {
@@ -78,7 +84,8 @@ async def target_state(initial_board: Board, response: Response, strategy: str =
         target_board, solution = generate_target_state(
             initial_board.board, strategy)
         return {"board": target_board, "solution": solution}
-    except:
+    except Exception as e:
+        logger.error(f"Failed to generate target board state: {e}")
         response.status_code = status.HTTP_400_BAD_REQUEST
         return {"msg": "failed to generate target board state"}
 
@@ -88,7 +95,8 @@ async def set_theme(theme: Theme, response: Response):
     try:
         validate_theme(theme)
         current_cell_color_theme = theme
-    except:
+    except Exception as e:
+        logger.error(f"Invalid theme error: {e}")
         response.status_code = status.HTTP_400_BAD_REQUEST
         return {"msg": "invalid theme"}
 
@@ -130,8 +138,9 @@ async def send_user_message(
 
         with smtplib.SMTP(smtp_server, smtp_port) as server:
             server.sendmail(user_message.email,
-                            config.EMAIL_RECEIVER, msg.as_string())
+                            config.EMAIL, msg.as_string())
     except Exception as e:
+        logger.error(f"Failed to send email: {e}")
         response.status_code = status.HTTP_500_INTERNAL_SERVER_ERROR
         return {"msg": f"Failed to send email: {e}"}
 
