@@ -35,16 +35,8 @@ function Navbar() {
     const isHovered = hoveredItem === itemKey;
     const isSelected = selectedItem === itemKey;
     
-    // Handle responsive iconOnly prop
-    const getShowText = () => {
-      if (typeof iconOnly === 'object') {
-        // For responsive breakpoints, we'll use CSS to control visibility
-        return true;
-      }
-      return !iconOnly || isHovered || isSelected;
-    };
-    
-    const showText = getShowText();
+    const isResponsive = typeof iconOnly === 'object';
+    const showTextDesktop = !iconOnly || isHovered || isSelected;
 
     return (
       <Link
@@ -63,13 +55,13 @@ function Navbar() {
       >
         <Image boxSize="6" src={icon} alt={`${label} icon`} />
         <Text
-          ml={showText ? 1 : 0}
-          opacity={showText ? 1 : 0}
-          width={showText ? "auto" : 0}
+          ml={isResponsive ? { base: 0, md: 1 } : showTextDesktop ? 1 : 0}
+          opacity={isResponsive ? 1 : showTextDesktop ? 1 : 0}
+          width={isResponsive ? "auto" : showTextDesktop ? "auto" : 0}
           overflow="hidden"
           whiteSpace="nowrap"
           fontSize="lg"
-          display={typeof iconOnly === 'object' ? { base: "none", md: "block" } : undefined}
+          display={isResponsive ? { base: "none", md: "block" } : undefined}
         >
           {label}
         </Text>
