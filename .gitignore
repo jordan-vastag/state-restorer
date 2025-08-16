@@ -207,3 +207,4 @@ node_modules
 *yarn.lock
 *pyproject.toml
 .claude/
+*todo*
