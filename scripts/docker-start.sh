@@ -21,10 +21,6 @@ docker compose create --build --remove-orphans
 # Run containers
 docker compose start
 
-# TODO: configure this
+# TODO: configure this for development
 # Watch for file changes
 # docker compose watch
-
-# Output current status
-sleep 5
-docker ps -a
