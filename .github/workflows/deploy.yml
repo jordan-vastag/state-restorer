@@ -24,9 +24,7 @@ jobs:
           timeout: 30s
           command_timeout: 10m
           script: |
-            echo "Deploying" >> /home/jrv/app/log
-          # script: |
-          #   cd ${{ secrets.DEPLOYMENT_DIRECTORY }}
-          #   git pull
-          #   cd state-restorer
-          #   ./scripts/docker-start.sh && echo "Deployment successful."
+            cd ${{ secrets.DEPLOYMENT_DIRECTORY }}
+            git pull
+            cd state-restorer
+            touch flag
