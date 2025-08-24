@@ -24,8 +24,103 @@ jobs:
           timeout: 30s
           command_timeout: 10m
           script: |
-            cd ${{ secrets.DEPLOYMENT_DIRECTORY }}
-            git fetch origin
-            git reset --hard origin/main
-            cd state-restorer
-            echo "$(date) | Deployment successful." >> ${{ secrets.DEPLOYMENT_DIRECTORY }}/log
+            deployment_log="${{ secrets.DEPLOYMENT_DIRECTORY }}/deployment.log"
+            app_directory="${{ secrets.DEPLOYMENT_DIRECTORY }}/${{ github.event.repository.name }}"
+            backup_directory="${{ secrets.DEPLOYMENT_DIRECTORY }}/backup"
+            application_url="https://${{ secrets.DOMAIN_NAME }}"
+            repository_url="git@github.com:jordan-vastag/state-restorer.git"
+
+            log() {
+              echo "$(date) | ${1}" >> "${deployment_log}"
+            }
+
+            site_health_check() {
+            status_code=$(curl -o /dev/null -s -w "%{http_code}\n" "${application_url}")
+            if [ "${status_code}" -ne 200 ]; then
+              log "✗ Site health check failed with status code ${status_code}"
+              return 1
+            else
+              log "✓ Site health check passed with status code ${status_code}"
+              return 0
+            fi
+            }
+
+            container_health_check() {
+              expected_services=("backend" "frontend" "nginx")
+              for service in "${expected_services[@]}"; do
+                if docker compose ps --services --filter "status=running" | grep -q "^${service}$"; then
+                  log "✓ ${service} container is running"
+                else
+                  log "✗ ${service} container is not running"
+                  return 1
+                fi
+              done
+              
+              log "All containers are running - health check passed"
+              return 0
+            }
+
+            rollback_version() {
+              rm -rf "${app_directory}"
+              cp -r "${backup_directory}/${{ github.event.repository.name }}" "${app_directory}"
+              cd "${app_directory}"
+              log "Restarting old version..."
+              chmod +x scripts/docker-start.sh && ./scripts/docker-start.sh
+
+              sleep 10  # Wait for services to stabilize
+
+              log "Performing health checks on rolled back version..."
+              if container_health_check && site_health_check; then
+                log "✓ Rollback successful - all health checks passed."
+                return 0
+              else
+                log "✗ Rollback failed - health checks did not pass."
+                log "Manual intervention required."
+                return 1
+              fi
+            }
+
+            log "Starting deployment..."
+            if [ ! -d "${app_directory}" ]; then
+              log "App directory not found. Performing first time deployment..."
+              mkdir -p "${{ secrets.DEPLOYMENT_DIRECTORY }}"
+              cd "${{ secrets.DEPLOYMENT_DIRECTORY }}"
+              
+              log "Cloning repository..."
+              git clone "${repository_url}"
+            else
+              log "App directory found. Performing normal deployment..."
+              log "Backing up current version..."
+              if [ ! -d "${backup_directory}" ]; then
+                mkdir -p "${backup_directory}"
+              fi
+              cp -r "${{ github.event.repository.name }}" "${backup_directory}/${{ github.event.repository.name }}"
+              cd "${app_directory}"
+
+              log "Fetching new version..."
+              git fetch origin
+              git reset --hard origin/main
+            fi
+
+            log "Starting application..."
+            chmod +x scripts/docker-start.sh && ./scripts/docker-start.sh
+
+            log "Performing container health check..."
+            if ! container_health_check; then
+              log "Attempting version rollback..."
+              rollback_version
+              log "Deployment unsuccessful."
+              exit 1;
+            fi
+
+            sleep 10  # Wait for services to stabilize
+
+            log "Performing site health check..."
+            if ! site_health_check; then
+              log "Attempting version rollback..."
+              rollback_version
+              log "Deployment unsuccessful."
+              exit 1;
+            fi
+
+            log "Deployment successful."
