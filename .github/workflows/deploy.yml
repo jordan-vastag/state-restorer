@@ -1,0 +1,32 @@
+name: Deployment Workflow
+
+on:
+  pull_request:
+    types:
+      - closed
+    branches:
+      - main
+
+jobs:
+  deploy:
+    if: github.event.pull_request.merged == true
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Deploy via SSH
+        uses: appleboy/ssh-action@v0.1.7
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.CICD_USERNAME }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          timeout: 30s
+          command_timeout: 10m
+          script: |
+            echo "Deploying" >> /home/jrv/app/log
+          # script: |
+          #   cd ${{ secrets.DEPLOYMENT_DIRECTORY }}
+          #   git pull
+          #   cd state-restorer
+          #   ./scripts/docker-start.sh && echo "Deployment successful."

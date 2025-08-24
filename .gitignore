@@ -174,7 +174,7 @@ cython_debug/
 .pypirc
 
 # Logs
-log
+log*
 logs
 *.log
 npm-debug.log*
@@ -207,3 +207,4 @@ node_modules
 *yarn.lock
 *pyproject.toml
 .claude/
+*todo*
