@@ -6,11 +6,13 @@ WORKDIR /app
 
 ENV NODE_PATH=/node_modules
 ENV PATH=$PATH:/node_modules/.bin
-RUN npm install yarn && yarn
+
+RUN npm install yarn 
+COPY package.json .
+RUN yarn
 
 COPY public/ .
 COPY src/ .
-COPY package.json .
 COPY tsconfig.* .
 COPY vite.config.ts .
 COPY index.html .
