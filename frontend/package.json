@@ -4,9 +4,9 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite --mode dev",
-    "docker": "vite --mode docker",
-    "build": "tsc -b && vite build"
+    "dev": "npx vite --mode dev",
+    "docker": "npx vite --mode docker",
+    "build": "tsc -b && npx vite build"
   },
   "dependencies": {
     "@chakra-ui/cli": "^3.15.0",
