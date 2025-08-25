@@ -8,7 +8,7 @@ ENV NODE_PATH=/node_modules
 ENV PATH=$PATH:/node_modules/.bin
  
 COPY package.json .
-RUN npm install yarn && yarn
+RUN npm install -g yarn && yarn
 
 COPY public/ .
 COPY src/ .
