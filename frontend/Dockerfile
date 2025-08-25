@@ -7,8 +7,7 @@ WORKDIR /app
 COPY package.json .
 RUN npm install yarn && yarn
 
-ENV NODE_PATH=/node_modules
-ENV PATH=$PATH:/node_modules/.bin
+ENV PATH=$PATH:/app/node_modules/.bin
 
 COPY public/ .
 COPY src/ .
