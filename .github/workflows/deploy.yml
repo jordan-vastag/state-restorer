@@ -6,14 +6,31 @@ on:
       - closed
     branches:
       - main
+  workflow_dispatch:
+    inputs:
+      branch:
+        description: "Branch to deploy"
+        required: true
+        default: "main"
+        type: string
+      environment:
+        description: "Deployment environment"
+        required: true
+        default: "production"
+        type: choice
+        options:
+          - production
+        # - staging
 
 jobs:
   deploy:
-    if: github.event.pull_request.merged == true
+    if: github.event.pull_request.merged == true || github.event_name == 'workflow_dispatch'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.inputs.branch || github.ref }}
 
       - name: Deploy via SSH
         uses: appleboy/ssh-action@v0.1.7
@@ -171,9 +188,10 @@ jobs:
               mkdir -p "${backup_directory}"
               cp -r . "${backup_directory}/source_$(date +'%Y%m%d_%H%M%S')" 2>/dev/null || true
               
-              log "Fetching new version..."
+              deploy_branch="${{ github.event.inputs.branch || 'main' }}"
+              log "Fetching new version from branch: ${deploy_branch}..."
               git fetch origin
-              git reset --hard origin/main
+              git reset --hard origin/${deploy_branch}
             fi
 
             log "Building Docker images with tag ${current_sha}..."
