@@ -16,3 +16,5 @@ COPY vite.config.ts .
 COPY index.html .
 COPY .env .
 COPY .env.docker .
+
+CMD npm run docker

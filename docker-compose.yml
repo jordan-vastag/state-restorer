@@ -17,7 +17,6 @@ services:
 
   backend:
     image: state-restorer-backend:latest
-    command: python app/main.py
     tty: true
     volumes:
       - ./backend:/app/:cached
@@ -30,7 +29,6 @@ services:
 
   frontend:
     image: state-restorer-frontend:latest
-    command: npm run docker
     stdin_open: true
     volumes:
       - './frontend:/app:cached'
