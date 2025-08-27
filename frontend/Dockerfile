@@ -9,8 +9,8 @@ RUN npm install yarn && yarn
 
 ENV PATH=$PATH:/app/node_modules/.bin
 
-COPY public/ .
-COPY src/ .
+COPY public/ ./public/
+COPY src/ ./src/
 COPY tsconfig.* .
 COPY vite.config.ts .
 COPY index.html .
