@@ -17,4 +17,4 @@ COPY index.html .
 COPY .env .
 COPY .env.docker .
 
-CMD npm run docker
+CMD ["npm", "run", "docker"]
