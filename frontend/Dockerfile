@@ -5,7 +5,7 @@ EXPOSE 35729
 WORKDIR /app
 
 COPY package.json .
-RUN npm install yarn && yarn
+RUN npm install yarn && rm package-lock.json && yarn
 
 ENV PATH=$PATH:/app/node_modules/.bin
 
