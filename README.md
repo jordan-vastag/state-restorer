@@ -43,8 +43,6 @@ To run them: `./scripts/docker-start.sh; ./scripts/test_backend.sh`
 
 ## TODO
 
-- Test container restart policy
-
 - Certbot post renewal hook on VPS [docs](https://www.interhacktive.de/certbot/using.html#pre-and-post-validation-hooks)
 
 - [Observability](https://grafana.com/grafana/dashboards/16110-fastapi-observability/)
