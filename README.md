@@ -40,3 +40,17 @@ If `start.sh` fails, try removing `backend/venv`, `node_modules` and `yarn.lock`
 Currently there are only backend unit tests.
 
 To run them: `./scripts/docker-start.sh; ./scripts/test_backend.sh`
+
+## TODO
+
+- Test container restart policy
+
+- Certbot post renewal hook on VPS [docs](https://www.interhacktive.de/certbot/using.html#pre-and-post-validation-hooks)
+
+- [Observability](https://grafana.com/grafana/dashboards/16110-fastapi-observability/)
+
+- Dark mode w/ auto system setting detection
+
+- Version on UI
+
+- Local docker config vs Prod docker config
