@@ -51,7 +51,7 @@ Deployment is done with Github Actions over SSH. The configuration is in `.githu
 
 Key Points:
 
-- Deployment is triggered when a pull request is merged into `main`
+- Deployment is automatically triggered when a pull request is merged into `main`. Manual deployment is also available.
 
 - App is deployed to a single VPS that has certbot and Docker installed
 
