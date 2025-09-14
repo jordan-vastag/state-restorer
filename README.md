@@ -1,8 +1,12 @@
-# state-restorer
+# State Restorer
+
+A tile based puzzle game built using React and FastAPI [[link](https://jrv.fish)]
 
 ## Quick Start
 
 ### Docker
+
+TODO: local docker build vs prod docker build
 
 ```
 ./scripts/docker-start.sh
@@ -41,11 +45,35 @@ Currently there are only backend unit tests.
 
 To run them: `./scripts/docker-start.sh; ./scripts/test_backend.sh`
 
+## Deployment
+
+Deployment is done with Github Actions over SSH. The configuration is in `.github/workflows/deploy.yml`.
+
+Key Points:
+
+- Deployment is automatically triggered when a pull request is merged into `main`. Manual deployment is also available.
+
+- App is deployed to a single VPS that has certbot and Docker installed
+
+- Secrets are stored the Secrets > Github Actions section of Github project settings
+
+- The deployment script:
+
+  1. Creates the backup directory, deployment.log, and clones the project if necesary
+
+  1. Keeps Docker images (tagged with the SHA commit id) of three previous versions and tags the new images with `latest`
+
+  1. Keeps backups of three previous versions of source code
+
+  1. Performs container and site health checks after starting containers and rolls back to the previous version if health checks fail
+
+## TLS Certificate
+
+`certbot` is installed on the VPS, and it automatically renews the Let's Encrypt certificate located at `/etc/letsencrypt/live/jrv.fish/` 30 days before the certificate expires.
+
+The nginx container loads the certificate from the mounted volume. When the certificate is renewed, the nginx configuration is reloaded with a [deploy hook](https://www.interhacktive.de/certbot/using.html#pre-and-post-validation-hooks) located at `/etc/letsencrypt/renewal-hooks/deploy/reload-nginx.sh`
+
 ## TODO
-
-- Test container restart policy
-
-- Certbot post renewal hook on VPS [docs](https://www.interhacktive.de/certbot/using.html#pre-and-post-validation-hooks)
 
 - [Observability](https://grafana.com/grafana/dashboards/16110-fastapi-observability/)
 
