@@ -57,9 +57,11 @@ Key Points:
 
 - Secrets are stored the Secrets > Github Actions section of Github project settings
 
+- Deployment logs are stored in `deployment.log` in the deployment directory
+
 - The deployment script:
 
-  1. Creates the backup directory, deployment.log, and clones the project if necesary
+  1. Creates the `backup` directory, `deployment.log`, and clones the project if necesary
 
   1. Keeps Docker images (tagged with the SHA commit id) of three previous versions and tags the new images with `latest`
 
@@ -72,6 +74,16 @@ Key Points:
 `certbot` is installed on the VPS, and it automatically renews the Let's Encrypt certificate located at `/etc/letsencrypt/live/jrv.fish/` 30 days before the certificate expires.
 
 The nginx container loads the certificate from the mounted volume. When the certificate is renewed, the nginx configuration is reloaded with a [deploy hook](https://www.interhacktive.de/certbot/using.html#pre-and-post-validation-hooks) located at `/etc/letsencrypt/renewal-hooks/deploy/reload-nginx.sh`
+
+## Observability
+
+TODO
+
+### Logs
+
+### Metrics
+
+### Traces
 
 ## TODO
 
