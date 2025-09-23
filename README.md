@@ -69,6 +69,8 @@ Key Points:
 
   1. Performs container and site health checks after starting containers and rolls back to the previous version if health checks fail
 
+- When applicable, update `VITE_APP_VERSION` in `frontend/.env.*` files
+
 ## TLS Certificate
 
 `certbot` is installed on the VPS, and it automatically renews the Let's Encrypt certificate located at `/etc/letsencrypt/live/jrv.fish/` 30 days before the certificate expires.
@@ -90,7 +92,5 @@ TODO
 - [Observability](https://grafana.com/grafana/dashboards/16110-fastapi-observability/)
 
 - Dark mode w/ auto system setting detection
-
-- Version on UI
 
 - Local docker config vs Prod docker config
