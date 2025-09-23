@@ -208,6 +208,13 @@ jobs:
               git reset --hard origin/${deploy_branch}
             fi
 
+            log "Creating backend .env file from Github Actions secrets..."
+            cat > ./backend/.env << EOF
+            GMAIL_EMAIL=${{ secrets.GMAIL_EMAIL }}
+            GMAIL_APP_PASSWORD=${{ secrets.GMAIL_APP_PASSWORD }}
+            RECIPIENT_EMAIL=${{ secrets.RECIPIENT_EMAIL }}
+            EOF
+
             log "Building Docker images with tag ${current_sha}..."
             if ! docker build -t state-restorer-backend:${current_sha} ./backend; then
               log "✗ Backend Docker build failed"
