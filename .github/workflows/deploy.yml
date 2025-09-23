@@ -48,6 +48,7 @@ jobs:
             repository_url="git@github.com:${{ github.repository }}.git"
             current_sha="${{ github.sha }}"
             previous_sha_file="${app_directory}/.previous_sha"
+            latest_sha_file="${app_directory}/.latest_sha"
 
             log() {
               echo "${1}"
@@ -64,6 +65,21 @@ jobs:
               
               if [ -z "${{ secrets.DOMAIN_NAME }}" ]; then
                 log "✗ DOMAIN_NAME secret is missing"
+                exit 1
+              fi
+
+              if [ -z "${{ secrets.GMAIL_EMAIL }}" ]; then
+                log "✗ GMAIL_EMAIL secret is missing"
+                exit 1
+              fi
+              
+              if [ -z "${{ secrets.GMAIL_APP_PASSWORD }}" ]; then
+                log "✗ GMAIL_APP_PASSWORD secret is missing"
+                exit 1
+              fi
+              
+              if [ -z "${{ secrets.RECIPIENT_EMAIL }}" ]; then
+                log "✗ RECIPIENT_EMAIL secret is missing"
                 exit 1
               fi
               
@@ -176,13 +192,12 @@ jobs:
               log "App directory found. Performing normal deployment..."
               cd "${app_directory}"
               
-              # Store current SHA as previous before updating
-              if docker image inspect state-restorer-backend:latest >/dev/null 2>&1; then
-                current_backend_sha=$(docker image inspect state-restorer-backend:latest --format '{{index .RepoTags 0}}' | cut -d: -f2)
-                if [ "${current_backend_sha}" != "latest" ]; then
-                  echo "${current_backend_sha}" > "${previous_sha_file}"
-                  log "Stored previous version: ${current_backend_sha}"
-                fi
+              if [ -f "${latest_sha_file}" ]; then
+                current_deployed_sha=$(cat "${latest_sha_file}")
+                echo "${current_deployed_sha}" > "${previous_sha_file}"
+                log "Stored previous version: ${current_deployed_sha}"
+              else
+                log "No previous deployment found (.latest_sha file missing)"
               fi
               
               log "Creating source backup for manual intervention..."
@@ -196,8 +211,17 @@ jobs:
             fi
 
             log "Building Docker images with tag ${current_sha}..."
-            docker build -t state-restorer-backend:${current_sha} ./backend
-            docker build -t state-restorer-frontend:${current_sha} ./frontend
+            if ! docker build -t state-restorer-backend:${current_sha} ./backend; then
+              log "✗ Backend Docker build failed"
+              exit 1
+            fi
+
+            if ! docker build -t state-restorer-frontend:${current_sha} ./frontend; then
+              log "✗ Frontend Docker build failed"
+              exit 1
+            fi
+
+            log "✓ Docker builds completed successfully"
 
             log "Tagging new images as latest..."
             docker tag state-restorer-backend:${current_sha} state-restorer-backend:latest
@@ -230,6 +254,9 @@ jobs:
                 exit 1
               fi
             fi
+
+            echo "${current_sha}" > "${latest_sha_file}"
+            log "Updated .latest_sha file with current deployment: ${current_sha}"
 
             cleanup_old_images
             log "✓ Deployment successful for commit ${current_sha}"
