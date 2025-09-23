@@ -151,11 +151,9 @@ jobs:
               previous_sha=$(cat "${previous_sha_file}")
               log "Rolling back to previous version: ${previous_sha}"
               
-              # Tag previous images as latest
               docker tag state-restorer-backend:${previous_sha} state-restorer-backend:latest
               docker tag state-restorer-frontend:${previous_sha} state-restorer-frontend:latest
               
-              # Restart with previous version
               cd "${app_directory}"
               docker compose down
               docker compose up -d
