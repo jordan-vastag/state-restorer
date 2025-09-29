@@ -90,7 +90,7 @@ function Navbar() {
           <Flex alignItems="center" spaceX="2">
             <Link href="/" _hover={{ textDecoration: "none" }}>
               <Image
-                src={getLogoPath("192", colorMode)}
+                src={getLogoPath("192", colorMode) || "logo/192/logo-dark.png"}
                 alt="State Restorer Logo"
                 boxSize={{ base: "32px", md: "48px" }}
               ></Image>
