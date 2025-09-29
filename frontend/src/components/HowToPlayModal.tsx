@@ -8,8 +8,17 @@ import {
   Text,
   VStack,
 } from "@chakra-ui/react";
+import { useColorMode, useColorModeValue } from "@/components/ui/color-mode";
+import { getIconPath } from "@/utils/iconUtils";
 
 const HowToPlayModal = () => {
+  const { colorMode } = useColorMode();
+
+  const buttonBg = useColorModeValue("gray.100", "gray.700");
+  const buttonColor = useColorModeValue("gray.800", "gray.200");
+  const buttonHoverBg = useColorModeValue("gray.200", "gray.600");
+
+
   return (
     <Dialog.Root placement="center">
       <Dialog.Trigger asChild>
@@ -23,7 +32,7 @@ const HowToPlayModal = () => {
         >
           <Image
             boxSize={{ base: "6", md: "8" }}
-            src="question-mark.svg"
+            src={getIconPath("question-mark", colorMode)}
             alt="How to play"
             transition="opacity 0.8s ease"
           />
@@ -57,7 +66,15 @@ const HowToPlayModal = () => {
             </Dialog.Body>
             <Dialog.Footer>
               <Dialog.ActionTrigger asChild>
-                <Button fontSize={{ base: "sm", md: "md" }} size={{ base: "sm", md: "md" }}>Got it!</Button>
+                <Button
+                  fontSize={{ base: "sm", md: "md" }}
+                  size={{ base: "sm", md: "md" }}
+                  bg={buttonBg}
+                  color={buttonColor}
+                  _hover={{ bg: buttonHoverBg }}
+                >
+                  Got it!
+                </Button>
               </Dialog.ActionTrigger>
             </Dialog.Footer>
             <Dialog.CloseTrigger asChild>

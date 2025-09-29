@@ -1,14 +1,15 @@
 import { Box, Flex, Link, Text } from "@chakra-ui/react";
+import { useColorModeValue } from "@/components/ui/color-mode";
 
 function Footer() {
   const year = new Date().getFullYear();
   const app_version = import.meta.env.VITE_APP_VERSION;
+  const bgColor = useColorModeValue("whitesmoke", "#282c34");
 
   return (
     <>
-      {/* TODO: use theme color */}
       <Flex
-        bg="whitesmoke"
+        bg={bgColor}
         padding={{ base: 2, md: 4 }}
         justifyContent="center"
         fontSize={{ base: "xs", md: "sm" }}

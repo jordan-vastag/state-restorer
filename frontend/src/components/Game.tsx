@@ -7,6 +7,7 @@ import {
   SolutionModal,
 } from "@/components";
 import { toaster } from "@/components/ui/toaster";
+import { useColorModeValue } from "@/components/ui/color-mode";
 import { API_URL, DEFAULT_BOARD_SIZE, Difficulty } from "@/constants";
 import { Box, Button, Container, Flex } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
@@ -47,6 +48,10 @@ function Game(props: GameProps) {
   const tileSize = getTileSize(props.difficulty);
   const buttonBorderRadius = "md";
   const buttonFontSize = "md";
+
+  const buttonBg = useColorModeValue("gray.100", "gray.700");
+  const buttonColor = useColorModeValue("gray.800", "gray.200");
+  const buttonHoverBg = useColorModeValue("gray.200", "gray.600");
 
   const initializedCells = Array<string[]>(boardSize).fill(
     Array(boardSize).fill("#dddddd")
@@ -274,6 +279,9 @@ function Game(props: GameProps) {
               fontSize={{ base: "sm", md: buttonFontSize }}
               size={{ base: "sm", md: "md" }}
               onClick={undoMove}
+              bg={buttonBg}
+              color={buttonColor}
+              _hover={{ bg: buttonHoverBg }}
             >
               Undo
             </Button>
@@ -282,6 +290,9 @@ function Game(props: GameProps) {
               fontSize={{ base: "sm", md: buttonFontSize }}
               size={{ base: "sm", md: "md" }}
               onClick={handleResetClick}
+              bg={buttonBg}
+              color={buttonColor}
+              _hover={{ bg: buttonHoverBg }}
             >
               Reset
             </Button>
@@ -290,6 +301,9 @@ function Game(props: GameProps) {
               fontSize={{ base: "sm", md: buttonFontSize }}
               size={{ base: "sm", md: "md" }}
               onClick={handleNewGameClick}
+              bg={buttonBg}
+              color={buttonColor}
+              _hover={{ bg: buttonHoverBg }}
             >
               New Game
             </Button>
@@ -298,6 +312,9 @@ function Game(props: GameProps) {
               fontSize={{ base: "sm", md: buttonFontSize }}
               size={{ base: "sm", md: "md" }}
               onClick={handleShowSolution}
+              bg={buttonBg}
+              color={buttonColor}
+              _hover={{ bg: buttonHoverBg }}
             >
               Show Solution
             </Button>

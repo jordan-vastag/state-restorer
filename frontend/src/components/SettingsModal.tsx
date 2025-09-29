@@ -9,6 +9,8 @@ import {
   VStack,
 } from "@chakra-ui/react";
 import { useState } from "react";
+import { useColorMode, useColorModeValue } from "@/components/ui/color-mode";
+import { getIconPath } from "@/utils/iconUtils";
 
 interface SettingsModalProps {
   onDifficultyChange: (difficulty: string) => void;
@@ -16,9 +18,22 @@ interface SettingsModalProps {
 }
 
 const SettingsModal = (props: SettingsModalProps) => {
+  const { colorMode } = useColorMode();
   const [selectedDifficulty, setSelectedDifficulty] = useState(
     props.currentDifficulty
   );
+
+  const buttonBg = useColorModeValue("gray.100", "gray.700");
+  const buttonColor = useColorModeValue("gray.800", "gray.200");
+  const buttonHoverBg = useColorModeValue("gray.200", "gray.600");
+
+  const itemHoverBg = useColorModeValue("gray.50", "gray.700");
+  const radioButtonBg = useColorModeValue("gray.100", "gray.600");
+  const radioButtonHoverBg = useColorModeValue("gray.200", "gray.500");
+  const radioButtonCheckedBg = useColorModeValue("gray.50", "gray.600");
+  const radioButtonBorder = useColorModeValue("black", "gray.300");
+  const radioButtonDot = useColorModeValue("gray.600", "gray.200");
+
 
   const handleDifficultyChange = (details: { value: string | null }) => {
     if (details.value) {
@@ -40,7 +55,7 @@ const SettingsModal = (props: SettingsModalProps) => {
         >
           <Image
             boxSize={{ base: "6", md: "8" }}
-            src="settings.svg"
+            src={getIconPath("settings", colorMode)}
             alt="Settings Cog"
             transition="opacity 0.8s ease"
           />
@@ -65,7 +80,7 @@ const SettingsModal = (props: SettingsModalProps) => {
                   <VStack align="stretch" gap={3}>
                     <RadioGroup.Item
                       value={Difficulty.EASY}
-                      _hover={{ bg: "gray.50" }}
+                      _hover={{ bg: itemHoverBg }}
                       p={2}
                       borderRadius="md"
                     >
@@ -73,10 +88,11 @@ const SettingsModal = (props: SettingsModalProps) => {
                       <RadioGroup.ItemControl
                         position="relative"
                         borderWidth="2px"
-                        borderColor="black"
+                        borderColor={radioButtonBorder}
+                        bg={radioButtonBg}
                         _hover={{
-                          bg: "gray.100",
-                          borderColor: "black",
+                          bg: radioButtonHoverBg,
+                          borderColor: radioButtonBorder,
                           _before: {
                             content: '""',
                             position: "absolute",
@@ -86,12 +102,12 @@ const SettingsModal = (props: SettingsModalProps) => {
                             width: "5px",
                             height: "5px",
                             borderRadius: "50%",
-                            bg: "gray.600",
+                            bg: radioButtonDot,
                           },
                         }}
                         _checked={{
-                          bg: "gray.50",
-                          borderColor: "black",
+                          bg: radioButtonCheckedBg,
+                          borderColor: radioButtonBorder,
                           _before: {
                             content: '""',
                             position: "absolute",
@@ -101,7 +117,7 @@ const SettingsModal = (props: SettingsModalProps) => {
                             width: "5px",
                             height: "5px",
                             borderRadius: "50%",
-                            bg: "gray.600",
+                            bg: radioButtonDot,
                           },
                         }}
                       />
@@ -111,7 +127,7 @@ const SettingsModal = (props: SettingsModalProps) => {
                     </RadioGroup.Item>
                     <RadioGroup.Item
                       value={Difficulty.MEDIUM}
-                      _hover={{ bg: "gray.50" }}
+                      _hover={{ bg: itemHoverBg }}
                       p={2}
                       borderRadius="md"
                     >
@@ -119,10 +135,11 @@ const SettingsModal = (props: SettingsModalProps) => {
                       <RadioGroup.ItemControl
                         position="relative"
                         borderWidth="2px"
-                        borderColor="black"
+                        borderColor={radioButtonBorder}
+                        bg={radioButtonBg}
                         _hover={{
-                          bg: "gray.100",
-                          borderColor: "black",
+                          bg: radioButtonHoverBg,
+                          borderColor: radioButtonBorder,
                           _before: {
                             content: '""',
                             position: "absolute",
@@ -132,12 +149,12 @@ const SettingsModal = (props: SettingsModalProps) => {
                             width: "5px",
                             height: "5px",
                             borderRadius: "50%",
-                            bg: "gray.600",
+                            bg: radioButtonDot,
                           },
                         }}
                         _checked={{
-                          bg: "gray.50",
-                          borderColor: "black",
+                          bg: radioButtonCheckedBg,
+                          borderColor: radioButtonBorder,
                           _before: {
                             content: '""',
                             position: "absolute",
@@ -147,7 +164,7 @@ const SettingsModal = (props: SettingsModalProps) => {
                             width: "5px",
                             height: "5px",
                             borderRadius: "50%",
-                            bg: "gray.600",
+                            bg: radioButtonDot,
                           },
                         }}
                       />
@@ -157,7 +174,7 @@ const SettingsModal = (props: SettingsModalProps) => {
                     </RadioGroup.Item>
                     <RadioGroup.Item
                       value={Difficulty.HARD}
-                      _hover={{ bg: "gray.50" }}
+                      _hover={{ bg: itemHoverBg }}
                       p={2}
                       borderRadius="md"
                     >
@@ -165,10 +182,11 @@ const SettingsModal = (props: SettingsModalProps) => {
                       <RadioGroup.ItemControl
                         position="relative"
                         borderWidth="2px"
-                        borderColor="black"
+                        borderColor={radioButtonBorder}
+                        bg={radioButtonBg}
                         _hover={{
-                          bg: "gray.100",
-                          borderColor: "black",
+                          bg: radioButtonHoverBg,
+                          borderColor: radioButtonBorder,
                           _before: {
                             content: '""',
                             position: "absolute",
@@ -178,12 +196,12 @@ const SettingsModal = (props: SettingsModalProps) => {
                             width: "5px",
                             height: "5px",
                             borderRadius: "50%",
-                            bg: "gray.600",
+                            bg: radioButtonDot,
                           },
                         }}
                         _checked={{
-                          bg: "gray.50",
-                          borderColor: "black",
+                          bg: radioButtonCheckedBg,
+                          borderColor: radioButtonBorder,
                           _before: {
                             content: '""',
                             position: "absolute",
@@ -193,7 +211,7 @@ const SettingsModal = (props: SettingsModalProps) => {
                             width: "5px",
                             height: "5px",
                             borderRadius: "50%",
-                            bg: "gray.600",
+                            bg: radioButtonDot,
                           },
                         }}
                       />
@@ -207,7 +225,15 @@ const SettingsModal = (props: SettingsModalProps) => {
             </Dialog.Body>
             <Dialog.Footer>
               <Dialog.ActionTrigger asChild>
-                <Button fontSize={{ base: "sm", md: "md" }} size={{ base: "sm", md: "md" }}>Done</Button>
+                <Button
+                  fontSize={{ base: "sm", md: "md" }}
+                  size={{ base: "sm", md: "md" }}
+                  bg={buttonBg}
+                  color={buttonColor}
+                  _hover={{ bg: buttonHoverBg }}
+                >
+                  Done
+                </Button>
               </Dialog.ActionTrigger>
             </Dialog.Footer>
           </Dialog.Content>

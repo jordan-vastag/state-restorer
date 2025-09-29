@@ -1,8 +1,13 @@
 import { SOURCE_CODE_GITHUB_URL } from "@/constants";
 import { Main } from "@/layouts";
 import { Box, Heading, Image, Link, Text } from "@chakra-ui/react";
+import { useColorMode } from "@/components/ui/color-mode";
+import { getIconPath } from "@/utils/iconUtils";
 
 function About() {
+  const { colorMode } = useColorMode();
+
+
   const linkStyles = {
     textDecoration: "underline",
     textDecorationColor: "gray.400",
@@ -34,7 +39,6 @@ function About() {
         </Text>
         <Text fontSize="xl" mb={10}>
           If you have any feedback, ideas, or suggestions, please{" "}
-          {/* TODO: add link icon */}
           <Link href="/contact-us" {...linkStyles}>
             contact us
           </Link>
@@ -49,12 +53,12 @@ function About() {
             {...linkStyles}
           >
             <Image
-              src="github-mark/github-mark-dark.svg"
+              src={getIconPath("github", colorMode)}
               alt="GitHub"
               boxSize="4"
             />
             Github
-            <Image src="external-link.svg" alt="External link" boxSize="4" />
+            <Image src={getIconPath("external-link", colorMode)} alt="External link" boxSize="4" />
           </Link>
           .
         </Text>
@@ -65,7 +69,6 @@ function About() {
           State Restorer was developed by Jordan Vastag for fun and as an
           exercise in full stack web development. To view his other projects or
           work experience, check out his profile on{" "}
-          {/* TODO: add github, email, and linkedin images and external link icons */}
           <Link
             href="https://github.com/jordan-vastag"
             target="_blank"
@@ -75,12 +78,12 @@ function About() {
             {...linkStyles}
           >
             <Image
-              src="github-mark/github-mark-dark.svg"
+              src={getIconPath("github", colorMode)}
               alt="GitHub"
               boxSize="4"
             />
             Github
-            <Image src="external-link.svg" alt="External link" boxSize="4" />
+            <Image src={getIconPath("external-link", colorMode)} alt="External link" boxSize="4" />
           </Link>{" "}
           or{" "}
           <Link
@@ -93,7 +96,7 @@ function About() {
           >
             <Image src="linkedin.svg" alt="LinkedIn" boxSize="5" />
             LinkedIn
-            <Image src="external-link.svg" alt="External link" boxSize="4" />
+            <Image src={getIconPath("external-link", colorMode)} alt="External link" boxSize="4" />
           </Link>
           .
         </Text>
@@ -108,7 +111,7 @@ function About() {
             {...linkStyles}
           >
             React
-            <Image src="external-link.svg" alt="External link" boxSize="4" />
+            <Image src={getIconPath("external-link", colorMode)} alt="External link" boxSize="4" />
           </Link>{" "}
           +{" "}
           <Link
@@ -120,7 +123,7 @@ function About() {
             {...linkStyles}
           >
             ChakraUI
-            <Image src="external-link.svg" alt="External link" boxSize="4" />
+            <Image src={getIconPath("external-link", colorMode)} alt="External link" boxSize="4" />
           </Link>{" "}
           and{" "}
           <Link
@@ -132,7 +135,7 @@ function About() {
             {...linkStyles}
           >
             FastAPI
-            <Image src="external-link.svg" alt="External link" boxSize="4" />
+            <Image src={getIconPath("external-link", colorMode)} alt="External link" boxSize="4" />
           </Link>
           .
         </Text>
