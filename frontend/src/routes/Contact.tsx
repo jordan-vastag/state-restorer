@@ -1,3 +1,4 @@
+import { useColorModeValue } from "@/components/ui/color-mode";
 import { API_URL } from "@/constants";
 import { Main } from "@/layouts";
 import {
@@ -27,6 +28,10 @@ function Contact() {
   const [loading, setLoading] = useState(false);
   const [failCount, setFailCount] = useState(0);
   const [outOfRetries, setOutOfRetries] = useState(false);
+
+  const textColor = useColorModeValue("white.600", "gray.300");
+  const mutedTextColor = useColorModeValue("gray.500", "gray.400");
+  const borderColor = useColorModeValue("gray.300", "gray.600");
 
   const isRateLimited = () => {
     const last = localStorage.getItem(FEEDBACK_KEY);
@@ -97,7 +102,13 @@ function Contact() {
   if (submitted) {
     return (
       <Main>
-        <Box maxW="600px" mx="auto" mt={12} px={{ base: 6, md: 4 }} textAlign="center">
+        <Box
+          maxW="600px"
+          mx="auto"
+          mt={12}
+          px={{ base: 6, md: 4 }}
+          textAlign="center"
+        >
           <Text fontSize="2xl" mb={4}>
             Thank you for your feedback!
           </Text>
@@ -121,7 +132,7 @@ function Contact() {
           <Heading as="h1" size="2xl" mb={6}>
             Contact Us
           </Heading>
-          <Text fontSize="xl" color="gray.600">
+          <Text fontSize="xl" color={textColor}>
             Have questions, feedback, or suggestions about State Restorer? We'd
             love to hear from you! Once you fill out the form we'll get back to
             you as soon as possible.
@@ -137,6 +148,9 @@ function Contact() {
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 disabled={isFormDisabled()}
+                borderColor={borderColor}
+                _hover={{ borderColor: borderColor }}
+                _focus={{ borderColor: "purple.500" }}
                 required
               />
             </Field.Root>
@@ -149,6 +163,9 @@ function Contact() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 disabled={isFormDisabled()}
+                borderColor={borderColor}
+                _hover={{ borderColor: borderColor }}
+                _focus={{ borderColor: "purple.500" }}
                 required
               />
             </Field.Root>
@@ -165,13 +182,16 @@ function Contact() {
                 maxLength={MAX_FEEDBACK_LENGTH}
                 rows={6}
                 disabled={isFormDisabled()}
+                borderColor={borderColor}
+                _hover={{ borderColor: borderColor }}
+                _focus={{ borderColor: "purple.500" }}
                 required
               />
               <Flex justify="space-between" width="100%">
-                <Text fontSize="sm" color="gray.500">
+                <Text fontSize="sm" color={mutedTextColor}>
                   * All fields are required.
                 </Text>
-                <Text fontSize="sm" color="gray.500">
+                <Text fontSize="sm" color={mutedTextColor}>
                   {feedback.length}/{MAX_FEEDBACK_LENGTH}
                 </Text>
               </Flex>

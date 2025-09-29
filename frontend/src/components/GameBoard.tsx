@@ -1,5 +1,6 @@
 import { Tile } from "@/components";
 import { Center, For, SimpleGrid } from "@chakra-ui/react";
+import { useColorModeValue } from "@/components/ui/color-mode";
 
 interface gameBoardProps {
   cells: string[][];
@@ -12,6 +13,9 @@ interface gameBoardProps {
 }
 
 const GameBoard = (props: gameBoardProps) => {
+  const borderColor = useColorModeValue("gray.300", "gray.600");
+  const backgroundColor = useColorModeValue("gray.100", "gray.700");
+
   return (
     <>
       <Center>
@@ -19,11 +23,11 @@ const GameBoard = (props: gameBoardProps) => {
           columns={props.cells.length}
           gap={{ base: 3, md: 4 }}
           padding={{ base: 3, md: 4 }}
-          borderColor="gray.300"
+          borderColor={borderColor}
           borderWidth={{ base: "3px", md: "4px" }}
           borderRadius="md"
           borderStyle="solid"
-          background="gray.100"
+          background={backgroundColor}
         >
           <For each={props.cells}>
             {(_, row: number) => (
