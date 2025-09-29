@@ -1,4 +1,6 @@
 import { Image, Flex, Box } from "@chakra-ui/react";
+import { useColorMode } from "@/components/ui/color-mode";
+import { getIconPath } from "@/utils/iconUtils";
 
 interface errorProps {
   text: string;
@@ -6,6 +8,8 @@ interface errorProps {
 }
 
 function Error(props: errorProps) {
+  const { colorMode } = useColorMode();
+
   return (
     <Flex
       flexDirection="column"
@@ -15,7 +19,7 @@ function Error(props: errorProps) {
       height="inherit"
     >
       <Image
-        src="alert-icon.png"
+        src={getIconPath("alert-triangle", colorMode)}
         alt="Error Icon"
         boxSize="3xs"
         fit="scale-down"
