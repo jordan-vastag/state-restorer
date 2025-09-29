@@ -91,6 +91,4 @@ TODO
 
 - [Observability](https://grafana.com/grafana/dashboards/16110-fastapi-observability/)
 
-- Dark mode w/ auto system setting detection
-
 - Local docker config vs Prod docker config
