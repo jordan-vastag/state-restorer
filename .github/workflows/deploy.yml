@@ -52,7 +52,7 @@ jobs:
 
             log() {
               echo "${1}"
-              echo "$(date) | ${1}" >> "${deployment_log}"
+              echo "$(TZ='America/Chicago' date) | ${1}" >> "${deployment_log}"
             }
 
             validate_secrets() {
@@ -200,7 +200,7 @@ jobs:
               
               log "Creating source backup for manual intervention..."
               mkdir -p "${backup_directory}"
-              cp -r . "${backup_directory}/source_$(date +'%Y%m%d_%H%M%S')" 2>/dev/null || true
+              cp -r . "${backup_directory}/source_$(TZ='America/Chicago' date +'%Y%m%d_%H%M%S')" 2>/dev/null || true
               
               deploy_branch="${{ github.event.inputs.branch || 'main' }}"
               log "Fetching new version from branch: ${deploy_branch}..."
