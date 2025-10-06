@@ -88,5 +88,3 @@ TODO
 ## TODO
 
 - [Observability](https://grafana.com/grafana/dashboards/16110-fastapi-observability/)
-
-- Local docker config vs Prod docker config
