@@ -34,6 +34,14 @@ services:
     container_name: state-restorer-frontend
     restart: unless-stopped
     stdin_open: true
+    volumes:
+      - ./frontend/src:/app/src
+      - ./frontend/public:/app/public
+      - ./frontend/index.html:/app/index.html
+      - ./frontend/vite.config.ts:/app/vite.config.ts
+      - ./frontend/tsconfig.json:/app/tsconfig.json
+      - ./frontend/tsconfig.node.json:/app/tsconfig.node.json
+      - ./frontend/.env.local-docker:/app/.env.local-docker
     networks:
       - frontend
 
