@@ -14,6 +14,6 @@ export default defineConfig({
     strictPort: true,
     host: true,
     origin: "http://0.0.0.0:5173",
-    allowedHosts: ["frontend"],
+    allowedHosts: ["frontend", "localhost"],
   }
 });

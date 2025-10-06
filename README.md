@@ -6,16 +6,14 @@ A tile based puzzle game built using React and FastAPI [[link](https://jrv.fish)
 
 ### Docker
 
-TODO: local docker build vs prod docker build
-
 ```
-./scripts/docker-start.sh
+docker compose -f docker-compose.local.yml up
 ```
 
 This will build images and run containers for the frontend, backend, and nginx.
 
-- Frontend: [http://localhost:8443](http://localhost:8443)
-- Backend: [http://localhost:8443/api/docs](http://localhost:8443/api/docs)
+- Frontend: [http://localhost:8080](http://localhost:8080)
+- Backend: [http://localhost:8080/api/docs](http://localhost:8080/api/docs)
 
 To stop the app: `docker compose down`
 
