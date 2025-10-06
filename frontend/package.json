@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "npx vite --mode dev",
     "docker": "npx vite --mode docker",
+    "local-docker": "npx vite --mode local-docker",
     "build": "tsc -b && npx vite build"
   },
   "dependencies": {

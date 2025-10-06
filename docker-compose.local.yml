@@ -1,0 +1,42 @@
+services:
+  nginx:
+    image: nginx:1.27
+    container_name: state-restorer-nginx
+    restart: unless-stopped
+    volumes:
+      - ./nginx/nginx.local.conf:/etc/nginx/conf.d/default.conf
+    ports:
+      - 8080:8080
+    depends_on:
+      - backend
+      - frontend
+    networks:
+      - frontend
+      - backend
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: state-restorer-backend
+    restart: unless-stopped
+    tty: true
+    environment:
+      PYTHONPATH: .
+    networks:
+      - frontend
+      - backend
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile.local
+    container_name: state-restorer-frontend
+    restart: unless-stopped
+    stdin_open: true
+    networks:
+      - frontend
+
+networks:
+  frontend:
+  backend:
