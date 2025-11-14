@@ -77,14 +77,18 @@ The nginx container loads the certificate from the mounted volume. When the cert
 
 ## Observability
 
-TODO
-
 ### Logs
+
+At the moment, logs are stored on server. Eventually, they may be exported to Loki for viewing in Grafana.
 
 ### Metrics
 
-### Traces
+Metrics are stored in [Prometheus](https://prometheus.io/) and visualized in a [cloud instance](https://jrv.grafana.net/) of [Grafana](https://grafana.com/).
 
-## TODO
+The backend is instrumented with the [Prometheus Python client](https://github.com/prometheus/client_python?tab=readme-ov-file). System metrics are captured via the [Prometheus Node Exporter](https://prometheus.io/docs/guides/node-exporter/).
 
-- [Observability](https://grafana.com/grafana/dashboards/16110-fastapi-observability/)
+Dashboards are visible (to authorized users) on the Grafana instance [here](https://jrv.grafana.net/dashboards/f/bf444s335tkw0d/?orgId=1)
+
+- [App metrics](https://jrv.grafana.net/d/jvbkbd5/state-restorer?orgId=1&from=now-6h&to=now&timezone=browser)
+
+- [System metrics](https://jrv.grafana.net/d/jvpsf6k/system?orgId=1&from=now-6h&to=now&timezone=browser)
