@@ -5,7 +5,7 @@ load_dotenv()
 
 PROJECT_NAME = "state-restorer"
 
-PORT = 7331
+PORT = 8000
 
 FRONTEND_LOCAL_URL = "http://localhost:5173"
 

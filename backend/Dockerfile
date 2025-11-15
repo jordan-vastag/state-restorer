@@ -1,5 +1,5 @@
 FROM python:3.12
-EXPOSE 7331
+EXPOSE 8000
 
 WORKDIR /app
 
