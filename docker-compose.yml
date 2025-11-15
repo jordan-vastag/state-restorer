@@ -24,6 +24,8 @@ services:
     tty: true
     environment:
       PYTHONPATH: .
+    ports:
+      - localhost:8000:8000 # Expose metrics endpoint to localhost for Prometheus scraping
     networks:
       - frontend
       - backend
