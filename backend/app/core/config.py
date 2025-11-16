@@ -3,7 +3,7 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-PROJECT_NAME = "state-restorer"
+SERVICE_NAME = "state-restorer"
 
 PORT = 8000
 
