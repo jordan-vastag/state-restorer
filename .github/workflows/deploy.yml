@@ -214,6 +214,7 @@ jobs:
             GMAIL_EMAIL=${{ secrets.GMAIL_EMAIL }}
             GMAIL_APP_PASSWORD=${{ secrets.GMAIL_APP_PASSWORD }}
             RECIPIENT_EMAIL=${{ secrets.RECIPIENT_EMAIL }}
+            MODE=production
             EOF
 
             log "Building Docker images with tag ${current_sha}..."

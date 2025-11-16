@@ -27,3 +27,6 @@ CELL_COLOR_THEMES = {
 GMAIL_EMAIL = os.getenv("GMAIL_EMAIL")
 GMAIL_APP_PASSWORD = os.getenv("GMAIL_APP_PASSWORD")
 RECIPIENT_EMAIL = os.getenv("RECIPIENT_EMAIL", "jordanrvastag@gmail.com")
+
+DOCS_URL = None if os.getenv("MODE") == "production" else "/api/docs"
+OPENAPI_URL = None if os.getenv("MODE") == "production" else "/api"
