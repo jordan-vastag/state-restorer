@@ -22,7 +22,7 @@ function Privacy() {
         <Heading as="h2" size="xl" mb={4} mt={8}>
           Disclaimer
         </Heading>
-        <Text fontSize="xl" mb={8}>This privacy policy is subject to change.</Text>
+        <Text fontSize="xl" mb={8}>This privacy policy is subject to change. By using this site you agree to this privacy policy.</Text>
       </Box>
     </Main>
   );
