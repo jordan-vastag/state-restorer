@@ -6,8 +6,8 @@ import {
   SettingsModal,
   SolutionModal,
 } from "@/components";
-import { toaster } from "@/components/ui/toaster";
 import { useColorModeValue } from "@/components/ui/color-mode";
+import { toaster } from "@/components/ui/toaster";
 import { API_URL, DEFAULT_BOARD_SIZE, Difficulty } from "@/constants";
 import { Box, Button, Container, Flex } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
@@ -52,9 +52,10 @@ function Game(props: GameProps) {
   const buttonBg = useColorModeValue("gray.100", "gray.700");
   const buttonColor = useColorModeValue("gray.800", "gray.200");
   const buttonHoverBg = useColorModeValue("gray.200", "gray.600");
+  const initializedCellsBg = useColorModeValue("gray.100", "gray.500");
 
   const initializedCells = Array<string[]>(boardSize).fill(
-    Array(boardSize).fill("#dddddd")
+    Array(boardSize).fill(initializedCellsBg)
   );
   const [cells, setCells] = useState(initializedCells);
   const [initialCells, setInitialCells] = useState(initializedCells);
