@@ -182,9 +182,10 @@ jobs:
               log "App directory not found. Performing first time deployment..."
               mkdir -p "${{ secrets.DEPLOYMENT_DIRECTORY }}"
               cd "${{ secrets.DEPLOYMENT_DIRECTORY }}"
-              
-              log "Cloning repository..."
-              git clone "${repository_url}"
+
+              deploy_branch="${{ github.event.inputs.branch || 'main' }}"
+              log "Cloning repository from branch: ${deploy_branch}..."
+              git clone -b "${deploy_branch}" "${repository_url}"
               cd "${app_directory}"
             else
               log "App directory found. Performing normal deployment..."
@@ -213,6 +214,7 @@ jobs:
             GMAIL_EMAIL=${{ secrets.GMAIL_EMAIL }}
             GMAIL_APP_PASSWORD=${{ secrets.GMAIL_APP_PASSWORD }}
             RECIPIENT_EMAIL=${{ secrets.RECIPIENT_EMAIL }}
+            MODE=production
             EOF
 
             log "Building Docker images with tag ${current_sha}..."

@@ -32,7 +32,7 @@ function Terms() {
           Disclaimer
         </Heading>
         <Text fontSize="xl" mb={8}>
-          These terms and conditions are subject to change.
+          These terms and conditions are subject to change. By using this site you agree to these terms and conditions.
         </Text>
       </Box>
     </Main>

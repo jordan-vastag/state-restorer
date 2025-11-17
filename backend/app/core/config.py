@@ -3,9 +3,9 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-PROJECT_NAME = "state-restorer"
+SERVICE_NAME = "state-restorer"
 
-PORT = 7331
+PORT = 8000
 
 FRONTEND_LOCAL_URL = "http://localhost:5173"
 
@@ -27,3 +27,6 @@ CELL_COLOR_THEMES = {
 GMAIL_EMAIL = os.getenv("GMAIL_EMAIL")
 GMAIL_APP_PASSWORD = os.getenv("GMAIL_APP_PASSWORD")
 RECIPIENT_EMAIL = os.getenv("RECIPIENT_EMAIL", "jordanrvastag@gmail.com")
+
+DOCS_URL = None if os.getenv("MODE") == "production" else "/api/docs"
+OPENAPI_URL = None if os.getenv("MODE") == "production" else "/api"
