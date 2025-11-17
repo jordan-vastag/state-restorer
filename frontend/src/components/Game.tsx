@@ -229,13 +229,7 @@ function Game(props: GameProps) {
 
   useEffect(() => {
     generateNewBoard();
-  }, []);
-
-  useEffect(() => {
-    if (props.difficulty) {
-      generateNewBoard();
-    }
-  }, [props.difficulty, boardSize]);
+  }, [props.difficulty]);
 
   return (
     <>
