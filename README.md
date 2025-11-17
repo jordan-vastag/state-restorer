@@ -7,7 +7,7 @@ A tile based puzzle game built using React and FastAPI [[link](https://jrv.fish)
 ### Docker
 
 ```
-docker compose -f docker-compose.local.yml up
+docker compose -f docker-compose.local.yml up --build
 ```
 
 This will build images and run containers for the frontend, backend, and nginx.
