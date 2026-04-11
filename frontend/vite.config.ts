@@ -1,6 +1,6 @@
-import { defineConfig } from "vite";
-import tsconfigPaths from 'vite-tsconfig-paths'
 import react from "@vitejs/plugin-react-swc";
+import { defineConfig } from "vite";
+import tsconfigPaths from 'vite-tsconfig-paths';
 
 // https://vite.dev/config/
 export default defineConfig({
@@ -14,6 +14,6 @@ export default defineConfig({
     strictPort: true,
     host: true,
     origin: "http://0.0.0.0:5173",
-    allowedHosts: ["frontend", "localhost"],
+    allowedHosts: ["frontend", "localhost", "staterestorer.jrv.me"],
   }
 });
