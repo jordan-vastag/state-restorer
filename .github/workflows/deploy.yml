@@ -113,7 +113,7 @@ jobs:
               local attempt=1
               
               while [ $attempt -le $max_attempts ]; do
-                expected_services=("backend" "frontend" "nginx")
+                expected_services=("backend" "frontend")
                 all_running=true
                 
                 for service in "${expected_services[@]}"; do

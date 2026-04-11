@@ -1,6 +1,6 @@
 # State Restorer
 
-A tile based puzzle game built using React and FastAPI [[link](https://jrv.fish)]
+A tile based puzzle game built using React and FastAPI [[link](https://staterestorer.jrv.me)]
 
 ## Quick Start
 
@@ -71,9 +71,11 @@ Key Points:
 
 ## TLS Certificate
 
-`certbot` is installed on the VPS, and it automatically renews the Let's Encrypt certificate located at `/etc/letsencrypt/live/jrv.fish/` 30 days before the certificate expires.
+`certbot` is installed on the VPS, and it automatically renews the Let's Encrypt certificate located at `/etc/letsencrypt/live/staterestorer.jrv.me/` 30 days before the certificate expires.
 
-The nginx container loads the certificate from the mounted volume. When the certificate is renewed, the nginx configuration is reloaded with a [deploy hook](https://www.interhacktive.de/certbot/using.html#pre-and-post-validation-hooks) located at `/etc/letsencrypt/renewal-hooks/deploy/reload-nginx.sh`
+TLS termination is handled by the host nginx gateway (not the app containers). When the certificate is renewed, nginx is reloaded with a [deploy hook](https://www.interhacktive.de/certbot/using.html#pre-and-post-validation-hooks) located at `/etc/letsencrypt/renewal-hooks/deploy/reload-nginx.sh`
+
+The gateway nginx config files are in `nginx/vps/` and map to `/etc/nginx/` on the VPS.
 
 ## Observability
 
