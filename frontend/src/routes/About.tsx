@@ -1,8 +1,8 @@
+import { useColorMode } from "@/components/ui/color-mode";
 import { SOURCE_CODE_GITHUB_URL } from "@/constants";
 import { Main } from "@/layouts";
-import { Box, Heading, Image, Link, Text } from "@chakra-ui/react";
-import { useColorMode } from "@/components/ui/color-mode";
 import { getIconPath } from "@/utils/iconUtils";
+import { Box, Heading, Image, Link, Text } from "@chakra-ui/react";
 
 function About() {
   const { colorMode } = useColorMode();

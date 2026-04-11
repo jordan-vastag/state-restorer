@@ -148,7 +148,6 @@ function Navbar() {
               />
             </IconButton>
             <IconButton
-              onClick={toggleColorMode}
               variant="ghost"
               aria-label="Link to GitHub repository"
               size="sm"
