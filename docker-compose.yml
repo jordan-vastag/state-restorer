@@ -1,16 +1,17 @@
 services:
   backend:
-    image: state-restorer-backend:latest
+    image: ghcr.io/jordan-vastag/state-restorer-backend:latest
     container_name: state-restorer-backend
     restart: unless-stopped
     tty: true
+    env_file: .env
     environment:
       PYTHONPATH: .
     ports:
       - 127.0.0.1:8000:8000
 
   frontend:
-    image: state-restorer-frontend:latest
+    image: ghcr.io/jordan-vastag/state-restorer-frontend:latest
     container_name: state-restorer-frontend
     restart: unless-stopped
     stdin_open: true
