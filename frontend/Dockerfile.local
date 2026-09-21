@@ -1,4 +1,4 @@
-FROM node:23-slim
+FROM node:24-slim
 EXPOSE 5173
 EXPOSE 35729
 
